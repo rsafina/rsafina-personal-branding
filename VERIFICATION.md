@@ -1,5 +1,13 @@
 # Verification — 18 October 2026
 
+## Blink diagnosis and fix
+
+- Diagnosed before any new motion: every scroll-revealed group was fully visible as it entered the viewport, then dropped from opacity 1 to 0.1 in one frame and faded back (10–13 groups per page, both pages, both languages, 1440 and 390px). Cause: server-rendered content was visible, and the Web Animations reveal started from 0.1 after the group was already painted. Process steps and the chibi also faded inside an already fading parent, and the active nav link was set by two competing sources.
+- Fix: one approach (IntersectionObserver plus CSS transitions on opacity/transform, 520ms). Groups visible when the script runs stay visible with no replay; only off-screen groups are hidden. The process section reveals its parts, not itself; the chibi wave is a one-time transform. One rAF-throttled scroll listener owns header state and the active link. Focus inside a pending group reveals it immediately.
+- Verified by per-frame opacity sampling in Chromium: slow scroll, fast fling plus reverse, direct `#contact` load, and reload mid-page, in private (port 3000) and public (`npm start`) modes, at 1440 and 390px. No drops in any scenario; a group is invisible on screen for 30–160ms before its entrance starts. Keyboard tabbing on both pages left no focused element faded.
+- `npm test` 11 passed; `npm run build` passed; `npx playwright test` 33 passed, including new no-blink and reload-in-view regression checks. This container's Chromium differs from the pinned Playwright build, so tests ran with a local, uncommitted `executablePath` override.
+- Not done yet: Athos-style motion and project-card scrolling. The reference sites and topgolfer.app are blocked by this environment's network policy, and no browser on Retno's computer was linked, so no Athos behavior was observed or reproduced.
+
 ## Experience editorial update
 
 - `npm test`: 11 checks passed. New boundaries cover the four-entry order in private/public modes, Golfer's ZH-only source, absence of company imagery and employment timelines, absence of editorial placeholders, and all four entries' 40–65 word range in both languages.

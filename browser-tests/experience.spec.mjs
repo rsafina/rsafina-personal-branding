@@ -17,7 +17,7 @@ for(const lang of ['id','en']) for(const width of [360,1440]) {
   await expect(entries.locator('.experience-connection')).toHaveCount(4);
   await entries.nth(2).scrollIntoViewIfNeeded();
   await expect(entries.nth(2)).toHaveClass(/is-revealed/);
-  expect(await entries.nth(2).evaluate(el=>el.getAnimations().some(a=>a.playState==='running'&&a.effect.getTiming().duration===540))).toBe(true);
+  expect(await entries.nth(2).evaluate(el=>el.getAnimations().some(a=>a.playState==='running'&&a.effect.getTiming().duration===520))).toBe(true);
   await page.waitForTimeout(650);
   expect(await entries.nth(2).evaluate(el=>getComputedStyle(el).opacity)).toBe('1');
   await page.emulateMedia({reducedMotion:'reduce'});

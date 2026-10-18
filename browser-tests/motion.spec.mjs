@@ -30,8 +30,9 @@ for(const path of ['/','/prudential']) {
    expect(await card.evaluate(el=>getComputedStyle(el).transform)).toContain('-4');
   }else{
    await expect(page.locator('.process')).toHaveClass(/is-revealed/);
+   expect(await page.locator('.process').evaluate(el=>getComputedStyle(el).opacity)).toBe('1');
    const live=await page.locator('.steps li').evaluateAll(els=>els.flatMap(el=>el.getAnimations().map(a=>({state:a.playState,duration:a.effect.getTiming().duration,transform:getComputedStyle(el).transform}))));
-   expect(live.some(a=>a.state==='running' && a.duration===540)).toBe(true);
+   expect(live.some(a=>a.state==='running' && a.duration===520)).toBe(true);
    await page.waitForTimeout(850);
    expect(await page.locator('.steps li').evaluateAll(els=>els.every(el=>getComputedStyle(el).opacity==='1'))).toBe(true);
    expect(await page.locator('.steps').evaluate(el=>getComputedStyle(el,'::before').transform)).toBe('matrix(1, 0, 0, 1, 0, 0)');
@@ -96,4 +97,35 @@ test('reduced motion on initial load shows everything without movement',async({b
   expect(await page.evaluate(()=>document.getAnimations().length)).toBe(0);
  }
  await context.close();
+});
+
+// Regression: groups already painted must never be hidden again (the former 1 → 0.1 blink).
+for(const [path,width] of [['/',1440],['/prudential',1440],['/?lang=en',390],['/prudential?lang=en',390]]) {
+ test(`no blink while scrolling down and back: ${path} ${width}`,async({page})=>{
+  await page.setViewportSize({width,height:900});
+  await page.addInitScript(()=>{
+   window.__drops=[];const last=new WeakMap();
+   const tick=()=>{document.querySelectorAll('[data-reveal],.steps li,.hero-enter').forEach(el=>{
+    const r=el.getBoundingClientRect();if(r.bottom<=0||r.top>=innerHeight)return;
+    const o=+getComputedStyle(el).opacity,prev=last.get(el);
+    if(prev!==undefined&&o<prev-.05)window.__drops.push(`${el.className} ${prev}→${o}`);last.set(el,o);});
+    requestAnimationFrame(tick);};requestAnimationFrame(tick);
+  });
+  await page.goto(path);await page.waitForTimeout(700);
+  for(let i=0;i<40;i++){await page.mouse.wheel(0,150);await page.waitForTimeout(30);}
+  for(let i=0;i<4;i++){await page.mouse.wheel(0,-1500);await page.waitForTimeout(20);}
+  await page.waitForTimeout(900);
+  expect(await page.evaluate(()=>window.__drops)).toEqual([]);
+  await page.evaluate(()=>scrollTo({top:document.body.scrollHeight,behavior:'instant'}));await page.waitForTimeout(900);
+  expect(await page.locator('[data-reveal]').evaluateAll(els=>els.every(el=>getComputedStyle(el).opacity==='1'))).toBe(true);
+ });
+}
+
+test('content already in view at load is never hidden or replayed',async({page})=>{
+ await page.setViewportSize({width:1440,height:900});
+ await page.goto('/');await page.evaluate(()=>scrollTo({top:1800,behavior:'instant'}));await page.waitForTimeout(300);
+ await page.reload();await page.waitForTimeout(100);
+ const visible=await page.locator('[data-reveal]').evaluateAll(els=>els.filter(el=>{const r=el.getBoundingClientRect();return r.bottom>0&&r.top<innerHeight;}).map(el=>({pending:el.classList.contains('reveal-pending'),opacity:getComputedStyle(el).opacity})));
+ expect(visible.length).toBeGreaterThan(0);
+ expect(visible.every(v=>!v.pending&&v.opacity==='1')).toBe(true);
 });

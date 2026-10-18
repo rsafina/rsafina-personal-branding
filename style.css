@@ -140,8 +140,20 @@ picture { display: block; }
 .process { padding-bottom: 80px; }
 .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; list-style: none; margin: 42px 0 0; padding: 0; position: relative; }
 .steps::before { content: ''; position: absolute; height: 1px; background: #a5b9cc; top: 23px; left: 23px; right: 23px; transform-origin: left; }
-.process.is-revealed .steps::before { animation: process-line .65s var(--ease) both; }
+.process.reveal-pending .steps::before { transform: scaleX(0); }
+.process.reveal-played .steps::before { animation: process-line .65s var(--ease) both; }
 @keyframes process-line { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+/* Scroll entrances play once. motion.js marks only groups that are still off-screen as pending,
+   so visible content is never hidden. The process section reveals its parts, not itself, to avoid
+   nested fades. */
+.reveal-pending:not(.process), .process.reveal-pending > :not(.steps), .process.reveal-pending .steps li { opacity: 0; transform: translateY(16px); }
+.is-revealing:not(.process), .process.is-revealing > :not(.steps), .process.is-revealing .steps li { transition: opacity 520ms var(--ease), transform 520ms var(--ease); }
+.process.is-revealing .steps li:nth-child(2) { transition-delay: 80ms; }
+.process.is-revealing .steps li:nth-child(3) { transition-delay: 160ms; }
+.process.is-revealing .steps li:nth-child(4) { transition-delay: 240ms; }
+.greeting.reveal-played .chibi { animation: chibi-wave 600ms var(--ease) 120ms backwards; }
+@keyframes chibi-wave { from { transform: translateY(8px) rotate(-5deg); } 70% { transform: translateY(0) rotate(3deg); } to { transform: none; } }
+
 .steps li { position: relative; }
 .step-number { display: grid; place-items: center; position: relative; font: italic 20px Georgia, serif; color: var(--blue); background: #edf6fc; width: 47px; height: 47px; border: 1px solid #a5b9cc; border-radius: 50%; margin-bottom: 27px; box-shadow: 0 0 0 7px var(--canvas); }
 .steps h3 { font-size: 20px; }
@@ -268,7 +280,8 @@ footer>.tiny { grid-column: 1/-1; border-top: 1px solid var(--border); padding-t
   .question-list>div>span:last-child { display: none; }
   .steps { display: flex; flex-direction: column; gap: 30px; margin-top: 35px; }
   .steps::before { width: 1px; height: auto; left: 23px; top: 23px; bottom: 23px; right: auto; transform-origin: top; }
-  .process.is-revealed .steps::before { animation-name: process-line-vertical; }
+  .process.reveal-pending .steps::before { transform: scaleY(0); }
+  .process.reveal-played .steps::before { animation-name: process-line-vertical; }
   .steps li { padding-left: 73px; min-height: 100px; }
   .step-number { position: absolute; top: 0; left: 0; }
   .steps h3 { padding-top: 9px; font-size: 21px; margin-bottom: 13px; }
@@ -290,7 +303,7 @@ footer>.tiny { grid-column: 1/-1; border-top: 1px solid var(--border); padding-t
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
-  .hero-enter { opacity: 1; transform: none; }
+  .hero-enter, .reveal-pending, .reveal-pending > *, .reveal-pending .steps li { opacity: 1 !important; transform: none !important; }
   .button:active, .role-card:active { transform: none; }
   .button:hover, .role-card:hover, .text-link:hover>span, .button:hover>span, .role-card:hover .text-link>span { transform: none !important; }
 }
