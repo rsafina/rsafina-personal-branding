@@ -10,8 +10,8 @@
   --sky: #dff0fc;
   --lilac: #eee9fa;
   --ease: cubic-bezier(.22,.61,.36,1);
-  --ease-in-out: cubic-bezier(.44,0,.56,1);
-  --spring: cubic-bezier(.3,1.12,.4,1);
+  /* A gentle slow-down with no bounce, used for all movement. */
+  --calm: cubic-bezier(.3,.6,.35,1);
 }
 
 /* Language: each text exists in Indonesian (lang="id") and English (lang="en").
@@ -47,12 +47,12 @@ h1 em { font-style: italic; }
 .arrow { display: inline-block; transition: transform .2s var(--ease); }
 
 /* Header, after Athos: transparent and full width at the top; once you scroll, the inner bar
-   becomes a floating white rounded bar (about 0.45s, tiny spring). The outer header keeps a
+   becomes a floating white rounded bar (0.6s, no bounce). The outer header keeps a
    fixed height so the page never jumps. */
 .site-header { position: sticky; top: 0; z-index: 20; height: 84px; }
-.header-bar { max-width: 100%; height: 84px; margin: 0 auto; padding: 0 max(40px, calc((100% - 1200px) / 2)); display: flex; justify-content: space-between; align-items: center; gap: 28px; border-radius: 0; transition: max-width .45s var(--spring), height .45s var(--spring), padding .45s var(--spring), transform .45s var(--spring), border-radius .45s, background-color .3s, box-shadow .3s; animation: header-in 800ms var(--ease) 300ms backwards; }
-.is-scrolled .header-bar { max-width: 1160px; height: 64px; padding: 0 12px 0 28px; transform: translateY(12px); border-radius: 40px; background: #ffffffeb; box-shadow: 0 10px 30px #25324414, 0 0 0 1px #25324408; backdrop-filter: blur(14px); }
-@keyframes header-in { from { opacity: 0; transform: translateY(-18px); } }
+.header-bar { max-width: 100%; height: 84px; margin: 0 auto; padding: 0 max(40px, calc((100% - 1200px) / 2)); display: flex; justify-content: space-between; align-items: center; gap: 28px; border-radius: 0; transition: max-width .6s var(--calm), height .6s var(--calm), padding .6s var(--calm), transform .6s var(--calm), border-radius .6s var(--calm), background-color .4s, box-shadow .4s; animation: header-in 900ms var(--calm) 300ms backwards; }
+.is-scrolled .header-bar { max-width: 1160px; height: 64px; padding: 0 12px 0 28px; transform: translateY(12px); border-radius: 40px; background: #fffffff5; box-shadow: 0 10px 30px #25324414, 0 0 0 1px #25324408; }
+@keyframes header-in { from { opacity: 0; transform: translateY(-12px); } }
 .brand { font: 26px Georgia, serif; letter-spacing: -.03em; white-space: nowrap; }
 .site-header nav { display: flex; gap: 28px; font-size: 14px; }
 .site-header nav a { padding: 8px 0; position: relative; transition: color .2s; }
@@ -78,15 +78,20 @@ h1 em { font-style: italic; }
 .backdrop { position: absolute; z-index: -1; left: 0; right: 0; top: -84px; bottom: 0; overflow: hidden; pointer-events: none; background: linear-gradient(165deg, #fdf2f7 0%, #f7f5fc 45%, #e9f4fd 100%); }
 .insurance-page .backdrop { background: linear-gradient(160deg, #fcf3f8 0%, #f2f7fd 40%, #dceefb 100%); }
 .backdrop::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 140px; background: linear-gradient(transparent, var(--canvas)); }
+.lights { position: absolute; inset: 0; will-change: transform; }
 .light { position: absolute; border-radius: 50%; will-change: transform; }
-.light-pink { width: 62vmax; height: 62vmax; left: -18vmax; top: -22vmax; background: radial-gradient(circle, #f7d6e6 0%, #f9e4ee99 38%, transparent 68%); animation: drift-a 26s ease-in-out infinite alternate; }
-.light-blue { width: 70vmax; height: 70vmax; right: -24vmax; bottom: -30vmax; background: radial-gradient(circle, #c9e5f8 0%, #dff0fcaa 40%, transparent 68%); animation: drift-b 31s ease-in-out infinite alternate; }
-.light-lilac { width: 44vmax; height: 44vmax; left: 38%; top: 8%; background: radial-gradient(circle, #e9e2f8 0%, #eee9fa80 40%, transparent 70%); animation: drift-c 23s ease-in-out infinite alternate; }
-.waves { position: absolute; left: 0; bottom: 70px; width: 200%; height: 200px; fill: none; stroke: #ffffff; stroke-width: 1.5; opacity: .9; animation: waves 48s linear infinite; }
-.waves path:last-child { stroke: #b9d6ec; opacity: .55; }
-@keyframes drift-a { to { transform: translate(8vmax, 6vmax) scale(1.08); } }
-@keyframes drift-b { to { transform: translate(-7vmax, -5vmax) scale(1.06); } }
-@keyframes drift-c { to { transform: translate(-10vmax, 5vmax) scale(.92); } }
+.light-pink { width: 60vmax; height: 60vmax; left: -16vmax; top: -20vmax; background: radial-gradient(circle, #f5c6dc 0%, #f8dbe9a6 36%, transparent 66%); animation: drift-a 17s ease-in-out infinite alternate; }
+.light-blue { width: 66vmax; height: 66vmax; right: -22vmax; bottom: -28vmax; background: radial-gradient(circle, #b8dbf6 0%, #d3eafbb3 38%, transparent 66%); animation: drift-b 21s ease-in-out infinite alternate; }
+.light-lilac { width: 46vmax; height: 46vmax; left: 34%; top: 4%; background: radial-gradient(circle, #ddd2f7 0%, #e9e2f999 40%, transparent 68%); animation: drift-c 15s ease-in-out infinite alternate; }
+.light-sky { width: 34vmax; height: 34vmax; left: 8%; bottom: -6%; background: radial-gradient(circle, #cfe8fb 0%, #dff0fc99 40%, transparent 70%); animation: drift-d 19s ease-in-out infinite alternate; }
+.waves { position: absolute; left: 0; bottom: 70px; width: 200%; height: 200px; fill: none; stroke: #ffffff; stroke-width: 2; animation: waves 30s linear infinite; }
+.waves path:last-child { stroke: #a9cde9; opacity: .6; }
+.waves-slow { bottom: 110px; animation-duration: 46s; animation-direction: reverse; }
+.waves-slow path { stroke: #f2c3d9; opacity: .55; }
+@keyframes drift-a { to { transform: translate(14vmax, 9vmax) scale(1.15); } }
+@keyframes drift-b { to { transform: translate(-13vmax, -8vmax) scale(1.12); } }
+@keyframes drift-c { to { transform: translate(-16vmax, 9vmax) scale(.86); } }
+@keyframes drift-d { to { transform: translate(18vmax, -10vmax) scale(1.2); } }
 @keyframes waves { to { transform: translateX(-50%); } }
 .backdrop.is-paused * { animation-play-state: paused; }
 
@@ -132,7 +137,7 @@ h1 em { font-style: italic; }
 .experience-introduction { max-width: 680px; margin: 0 auto 52px; text-align: center; }
 .experience-introduction h2 { margin-bottom: 18px; }
 .experience-cards { display: flex; flex-direction: column; gap: 28px; }
-.experience-card { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 48px; min-height: var(--card-h, auto); padding: 48px 52px; border: 1px solid #ffffffb3; border-radius: 24px; box-shadow: 0 10px 40px -14px #2532441f; transform-origin: 50% 50%; }
+.experience-card { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 48px; min-height: var(--card-h, auto); padding: 48px 52px; border: 1px solid #ffffffb3; border-radius: 24px; box-shadow: 0 10px 40px -14px #2532441f; transform-origin: 50% 0; }
 .card-pink { background: #fbedf3; }
 .card-sky { background: #e8f3fc; }
 .card-lilac { background: #efebfa; }
@@ -175,14 +180,14 @@ footer { max-width: 1200px; margin: auto; display: grid; grid-template-columns: 
 footer p { font-size: 12px; margin-bottom: 8px; }
 footer > .tiny { grid-column: 1 / -1; border-top: 1px solid var(--border); padding-top: 22px; }
 
-/* Motion, after Athos. Hero entrance: plays once on load, blocks rise 32px over 0.6s,
-   about 90ms apart. Section reveals: sections below the screen wait, then rise 32px over
-   0.42s once they are about 60px into view; they never replay (see script.js). */
-.enter { animation: rise 600ms var(--ease-in-out) backwards; animation-delay: calc(var(--i) * 90ms + 60ms); }
-@keyframes rise { from { opacity: 0; transform: translateY(32px); } }
+/* Motion, based on Athos and softened. Hero entrance: plays once on load, blocks rise 20px
+   over 0.9s, 100ms apart. Section reveals: sections below the screen wait, then rise 18px
+   with a gentle slow-down once they are about 40px into view; they never replay (see script.js). */
+.enter { animation: rise 900ms var(--calm) backwards; animation-delay: calc(var(--i) * 100ms + 80ms); }
+@keyframes rise { from { opacity: 0; transform: translateY(20px); } }
 .skip-entrance .enter, .skip-entrance .header-bar { animation: none; }
-.waiting { opacity: 0; transform: translateY(32px); }
-.fading-in { transition: opacity 420ms var(--ease-in-out), transform 420ms var(--ease-in-out); }
+.waiting { opacity: 0; transform: translateY(18px); }
+.fading-in { transition: opacity 700ms var(--calm), transform 800ms var(--calm); }
 .greeting.fading-in .chibi { animation: wave 600ms var(--ease) 120ms backwards; }
 @keyframes wave { from { transform: translateY(8px) rotate(-5deg); } 70% { transform: rotate(3deg); } to { transform: none; } }
 

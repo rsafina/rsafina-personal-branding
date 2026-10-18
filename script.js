@@ -22,7 +22,8 @@
   let queued = false;
   function updateHeader() {
     queued = false;
-    header.classList.toggle('is-scrolled', scrollY > 24);
+    // Separate on/off points so the bar never flickers when you stop near the top.
+    header.classList.toggle('is-scrolled', header.classList.contains('is-scrolled') ? scrollY > 8 : scrollY > 48);
     let active = -1;
     if (scrollY > 100) sections.forEach((section, index) => { if (section.getBoundingClientRect().top <= innerHeight * .35) active = index; });
     sectionLinks.forEach((link, index) => link.toggleAttribute('aria-current', index === active));
@@ -40,6 +41,36 @@
   // Keyboard users never wait for the entrance: the first key press completes it.
   addEventListener('keydown', () => document.documentElement.classList.add('skip-entrance'), { once: true });
 
+  // Hero depth: while scrolling past the hero, its text drifts up a little slower than the page
+  // and softly fades, and the light moves slower still. Follows the scroll position, so it
+  // reverses when scrolling back up.
+  const hero = document.querySelector('.hero');
+  const heroMain = hero?.querySelector('.hero-main');
+  const heroStrip = hero?.querySelector('.hero-strip');
+  const lights = hero?.querySelector('.lights');
+  let depthFrame = 0;
+  function depth() {
+    depthFrame = 0;
+    if (reduceMotion.matches) { heroMain.style.translate = heroMain.style.opacity = lights.style.transform = ''; return; }
+    const y = Math.min(Math.max(scrollY, 0), hero.offsetHeight);
+    // The text fades out before it can reach the bottom strip, whatever the screen size.
+    // The separate translate property leaves the entrance animation's transform untouched.
+    const textBottom = [...heroMain.children].filter(child => child.getClientRects().length).pop().getBoundingClientRect().bottom - (parseFloat(heroMain.style.translate.split(' ')[1]) || 0);
+    const room = Math.max(40, heroStrip.getBoundingClientRect().top - textBottom);
+    const fadeEnd = Math.min(hero.offsetHeight * .5, room / .22 * .85);
+    heroMain.style.translate = y ? `0 ${(y * .22).toFixed(1)}px` : '';
+    // Keyboard focus inside the hero always sees it fully.
+    heroMain.style.opacity = y && !heroMain.contains(document.activeElement) ? Math.max(0, 1 - y / fadeEnd).toFixed(3) : '';
+    lights.style.transform = y ? `translate3d(0, ${(y * .18).toFixed(1)}px, 0)` : '';
+  }
+  if (hero && heroMain && heroStrip && lights) {
+    addEventListener('scroll', () => { if (!depthFrame && scrollY < hero.offsetHeight + 200) depthFrame = requestAnimationFrame(depth); }, { passive: true });
+    reduceMotion.addEventListener('change', depth);
+    heroMain.addEventListener('focusin', depth);
+    heroMain.addEventListener('focusout', () => requestAnimationFrame(depth));
+    depth();
+  }
+
   // Experience cards, after Athos: each card pins 15px lower than the one before and the
   // next card slides over it. A covered card shrinks 5% per card that has arrived on top,
   // following the scroll position (so it reverses when scrolling up), lightly smoothed.
@@ -47,7 +78,7 @@
   const stack = document.querySelector('.experience-cards');
   if (stack) {
     const cards = [...stack.children];
-    const SHRINK = .05, APPROACH = 400, STEP = 15;
+    const SHRINK = .04, APPROACH = 480, STEP = 15;
     let naturalTops = [], pin = 0, current = cards.map(() => 1), frame = 0, stacked = false;
 
     function docTop(element) { let top = 0; for (let e = element; e; e = e.offsetParent) top += e.offsetTop; return top; }
@@ -78,7 +109,7 @@
       if (!stacked) return;
       let moving = false;
       targets().forEach((target, i) => {
-        current[i] += (target - current[i]) * .2;
+        current[i] += (target - current[i]) * .14;
         if (Math.abs(target - current[i]) > .0005) moving = true; else current[i] = target;
         cards[i].style.transform = current[i] === 1 ? '' : `scale(${current[i].toFixed(4)})`;
       });
@@ -106,7 +137,7 @@
   const observer = new IntersectionObserver(entries => entries.forEach(entry => {
     if (!entry.isIntersecting) return;
     show(entry.target, true);
-  }), { threshold: 0, rootMargin: '0px 0px -60px 0px' });
+  }), { threshold: 0, rootMargin: '0px 0px -40px 0px' });
   function show(element, animate) {
     observer.unobserve(element);
     element.classList.remove('waiting');
