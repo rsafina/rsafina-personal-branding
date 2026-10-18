@@ -19,7 +19,8 @@ for(const path of ['/','/prudential']) for(const lang of ['id','en']) for(const 
   for(const a of await page.locator('a').all()){
    const href=await a.getAttribute('href');
    if(href.startsWith('#')) expect(await page.locator(href).count()).toBe(1);
-   expect(href).not.toMatch(/^(mailto:|tel:|https?:)/);
+   expect(href).not.toMatch(/^(mailto:|tel:)/);
+   if(href.startsWith('https:')) expect(['https://www.gameloft.com/','https://accelbyte.io/','https://topgolfer.app/zh']).toContain(href);
   }
   await page.keyboard.press('Tab');
   await expect(page.locator('.skip')).toBeFocused();

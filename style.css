@@ -107,9 +107,23 @@ picture { display: block; }
 .role-card .text-link { border-top: 1px solid var(--border); padding-top: 20px; width: 100%; justify-content: space-between; margin-top: auto; }
 .role-card:active { transform: translateY(-1px); }
 .experience { padding-top: 96px; }
-.experience .about { margin-top: 20px; align-items: start; }
-.experience h2 { margin: 0; }
-.experience .pending { margin: 0; border-left: 0; border-top: 2px solid #b9abc9; padding: 25px; background: linear-gradient(135deg, #f4effb, #f6f7fb); border-radius: 5px 5px 20px 20px; }
+.experience-grid { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 64px; align-items: start; }
+.experience-introduction h2 { margin: 20px 0 24px; }
+.experience-introduction>p { max-width: 33ch; font-size: 16px; }
+.experience-entry { border-top: 1px solid #cbd5e2; padding: 26px 0 28px; }
+.experience-entry:first-child { padding-top: 0; border-top: 0; }
+.experience-entry:last-child { padding-bottom: 0; }
+.experience-entry-heading { display: flex; align-items: baseline; gap: 12px; }
+.experience-entry h3 { font: 28px/1.25 Georgia, serif; letter-spacing: -.03em; margin: 0; }
+.experience-accent { flex: 0 0 9px; width: 9px; height: 9px; background: var(--pink); border: 1px solid #b693a5; border-radius: 3px; }
+.experience-entry:nth-child(even) .experience-accent { background: var(--sky); border-color: #86abc5; border-radius: 50%; }
+.experience-label { display: block; width: fit-content; margin: 10px 0 0 21px; padding: 3px 10px; border-radius: 20px; background: var(--sky); color: var(--blue); font-size: 11px; }
+.experience-entry p { font-size: 16px; line-height: 1.75; margin: 14px 0 0; }
+.experience-context .tiny { display: block; margin-bottom: 6px; }
+.experience-connection { padding-left: 15px; border-left: 2px solid var(--lilac); }
+.experience-editorial { padding: 12px 15px; margin-top: 16px; border-radius: 12px; background: #f3f3f8; }
+.experience-editorial p { margin: 5px 0 0; font-size: 13px; line-height: 1.65; }
+.experience-source { margin-top: 16px; font-size: 12px; color: var(--blue); }
 .habits { padding: 74px 0 90px; }
 .principles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 40px; }
 .number { font: italic 23px Georgia, serif; color: var(--blue); }
@@ -182,6 +196,7 @@ footer>.tiny { grid-column: 1/-1; border-top: 1px solid var(--border); padding-t
   .portrait-note { font-size: 15px; }
   .content { padding: 0 38px; }
   .about { gap: 38px; }
+  .experience-grid { gap: 35px; }
   .section { padding-top: 75px; padding-bottom: 75px; }
   .roles, .discussion { padding: 44px 30px; }
   .role-card { padding: 28px; }
@@ -240,7 +255,9 @@ footer>.tiny { grid-column: 1/-1; border-top: 1px solid var(--border); padding-t
   .role-card { padding: 26px; }
   .role-card h3 { font-size: 27px; }
   .card-symbol { margin-bottom: 23px; }
-  .experience .pending { margin-top: 27px; padding: 24px; }
+  .experience-grid { grid-template-columns: 1fr; gap: 24px; }
+  .experience-introduction>p { max-width: none; }
+  .experience-entry h3 { font-size: 27px; }
   .principles { grid-template-columns: 1fr; gap: 22px; margin-top: 30px; }
   .principles article { padding: 21px 0 0 45px; position: relative; }
   .principles .number { position: absolute; left: 0; top: 20px; }

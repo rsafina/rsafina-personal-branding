@@ -1,5 +1,17 @@
 # Verification — 18 October 2026
 
+## Experience editorial update
+
+- `npm test`: 11 checks passed. New boundaries cover the four-entry order in private/public modes, Golfer's ZH-only source, absence of company imagery and employment timelines, absence of editorial placeholders, and all four entries' 40–65 word range in both languages.
+- `npx playwright test`: 28 checks passed, including the existing page/language/viewport matrix and four focused experience checks (ID/EN × 360/1440px). Entry groups run the existing 540ms opacity/upward reveal once; reduced motion shows all content immediately. Verified desktop columns, mobile reading order, keyboard source-link focus, language persistence, and no overflow or missing images. Existing hero/header/button/background and insurance process checks still pass.
+- Insurance HTML compared byte-for-byte with pre-edit baselines in both languages: unchanged. Selected v3 portrait sources and existing images are untouched.
+- Text-led entries use official source links only; no third-party assets were copied or hotlinked. Golfer research was restricted to `https://topgolfer.app/zh`. See EXPERIENCE-SOURCES.md for context provenance and permission handling.
+- Focused screenshots are in `artifacts/experience/{id,en}-{360,1440}.png`; full-site screenshots remain in `artifacts/screenshots/`. For component-only captures, sticky header/skip-link overlays are hidden during capture, not in the actual site; keyboard focus is tested separately.
+- Content completed using Retno's follow-up confirmation: project management, managing teams, working with overseas clients, listening carefully, and reading between the lines to understand needs and wants. All four entries render in public-content mode, with no experience placeholders. No dates, current-employer identity, current-employment labels, metrics, or private independent-product details are rendered. Final bilingual copy is in EXPERIENCE-COPY.md. No further personal facts are needed for these summaries; other launch editorial items remain in EDITORIAL.md.
+- Chromium with viewport emulation was used. Physical devices, Safari/Firefox, and a full screen-reader audit remain untested. No push or deployment was performed.
+
+## Previous design and motion verification
+
 - `npm test`: 9 passing checks, covering server-rendered language output, one primary heading, anchor destinations, correct selected portrait references, the local deferred animation script, absence of collection/tracking or invented external contacts, draft noindex, and omission of unresolved public content.
 - Text palette contrast: ink, muted ink, and action blue exceed 4.5:1 against canvas, white, pink, sky, lilac, and draft surface endpoints. White primary-button text uses ink/action-blue backgrounds. Focus indicators are explicit blue outlines.
 - `npm run build`: passed; public HTML snapshots produced locally. Production query-language routing requires the Node server, as documented.

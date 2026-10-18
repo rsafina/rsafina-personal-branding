@@ -18,3 +18,5 @@ Selected originals are retained in `public/assets/`: `retno-introduction-v3.png`
 `npm test` runs rendering checks. `npx playwright test` runs browser verification against the local preview (start it first). `npx playwright install chromium` may be needed once. Screenshots and test results are local artifacts excluded from Git.
 
 See [EDITORIAL.md](EDITORIAL.md) for outstanding content. Source copy is in `site.mjs`; shared styling is in `style.css`.
+
+The experience section is a reusable renderer in `experience.mjs`. Confirmed independent work is kept separate from externally sourced company/product context. Entries with missing personal contributions appear only as labeled private drafts. Source notes are in [EXPERIENCE-SOURCES.md](EXPERIENCE-SOURCES.md), with bilingual copy in [EXPERIENCE-COPY.md](EXPERIENCE-COPY.md). Fill contribution/connection fields only from Retno's supplied account; source websites cannot establish these facts.

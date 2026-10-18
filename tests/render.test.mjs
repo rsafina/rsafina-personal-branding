@@ -17,7 +17,9 @@ for (const page of ['/', '/prudential']) for (const lang of ['id','en']) {
   assert.match(html,new RegExp(`<html lang="${lang}">`));
   assert.equal((html.match(/<h1\b/g)||[]).length,1);
   assert.match(html,/noindex, nofollow/);
-  assert.ok(!/<form|https?:\/\/|mailto:|tel:|wa\.me/.test(html));
+  assert.ok(!/<form|mailto:|tel:|wa\.me/.test(html));
+  const sources = ['https://www.gameloft.com/','https://accelbyte.io/','https://topgolfer.app/zh'];
+  for (const [,href] of html.matchAll(/href="(https?:[^\"]+)"/g)) assert.ok(sources.includes(href));
   assert.equal((html.match(/<script/g)||[]).length,1);
   assert.match(html, /<script src="\/motion.js" defer><\/script>/);
   assert.match(html, new RegExp(`/assets/retno-${page === '/' ? 'introduction' : 'insurance'}-v3-640.webp`));
