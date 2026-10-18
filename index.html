@@ -20,6 +20,7 @@
 <a class="skip" href="#main"><span lang="id">Langsung ke isi</span><span lang="en">Skip to content</span></a>
 
 <header class="site-header">
+  <div class="header-bar">
   <a class="brand" href="index.html" data-page aria-current="page">Retno Safinaeni</a>
   <nav>
     <a href="#about"><span lang="id">Tentang saya</span><span lang="en">About me</span></a>
@@ -34,6 +35,7 @@
     <a class="button button-small header-cta" lang="id" href="https://wa.me/6287837792220?text=Halo%20Retno%2C%20saya%20ingin%20terhubung." target="_blank" rel="noopener">Hubungi saya</a>
     <a class="button button-small header-cta" lang="en" href="https://wa.me/6287837792220?text=Hi%20Retno%2C%20I%27d%20like%20to%20connect." target="_blank" rel="noopener">Contact me</a>
   </div>
+  </div>
 </header>
 
 <main id="main">
@@ -45,14 +47,14 @@
       <svg class="waves" viewBox="0 0 2400 200" preserveAspectRatio="none"><path d="M0 120 C 300 60 600 180 900 120 S 1500 60 1800 120 S 2400 180 2400 120"/><path d="M0 150 C 300 100 600 200 900 150 S 1500 100 1800 150 S 2400 200 2400 150"/></svg>
     </div>
     <div class="hero-main">
-      <span class="eyebrow">Yogyakarta & Jakarta</span>
-      <h1 lang="id">Membuat yang rumit<br><em>jadi jelas.</em></h1>
-      <h1 lang="en">Making complicated things<br><em>clear.</em></h1>
-      <p class="hero-sentence" lang="id">Saya Retno, manajer produk & proyek sekaligus agen asuransi Prudential. Saya membantu orang mengubah pilihan yang rumit menjadi langkah yang jelas.</p>
-      <p class="hero-sentence" lang="en">I’m Retno, a product & project manager and Prudential insurance agent. I help people turn complicated choices into clear next steps.</p>
-      <a class="button" href="#about"><span lang="id">Kenali saya lebih dekat</span><span lang="en">Get to know me</span><span class="arrow" aria-hidden="true">↓</span></a>
+      <span style="--i:0" class="enter eyebrow">Yogyakarta & Jakarta</span>
+      <h1 class="enter" style="--i:1" lang="id">Membuat yang rumit<br><em>jadi jelas.</em></h1>
+      <h1 class="enter" style="--i:1" lang="en">Making complicated things<br><em>clear.</em></h1>
+      <p style="--i:2" class="enter hero-sentence" lang="id">Saya Retno, manajer produk & proyek sekaligus agen asuransi Prudential. Saya membantu orang mengubah pilihan yang rumit menjadi langkah yang jelas.</p>
+      <p style="--i:2" class="enter hero-sentence" lang="en">I’m Retno, a product & project manager and Prudential insurance agent. I help people turn complicated choices into clear next steps.</p>
+      <a style="--i:3" class="enter button" href="#about"><span lang="id">Kenali saya lebih dekat</span><span lang="en">Get to know me</span><span class="arrow" aria-hidden="true">↓</span></a>
     </div>
-    <div class="hero-strip">
+    <div style="--i:4" class="enter hero-strip">
       <div class="credential">
         <strong lang="id">10 tahun pengalaman produk & proyek</strong>
         <strong lang="en">10 years of product & project experience</strong>
@@ -109,7 +111,8 @@
       </div>
     </section>
 
-    <!-- Experience: personal claims come only from Retno's confirmed account.
+    <!-- Experience cards stack while scrolling, after the Athos reference (see script.js).
+         Personal claims come only from Retno's confirmed account.
          Do not add the current employer, Intoch, dates, metrics or achievements. -->
     <section id="experience" class="section experience">
       <div class="experience-introduction" data-reveal>
@@ -119,38 +122,58 @@
         <p lang="id">Dari game hingga produk digital, pengalaman ini membentuk cara saya memahami kebutuhan dan bekerja bersama orang lain.</p>
         <p lang="en">From games to digital products, this experience shapes how I understand needs and work with other people.</p>
       </div>
-      <div class="experience-entries">
-        <article class="experience-entry" data-reveal>
-          <h3><span class="experience-accent" aria-hidden="true"></span>Gameloft</h3>
-          <p lang="id">Di Gameloft, saya bekerja sebagai project manager, mengelola tim dan berkomunikasi dengan klien di luar negeri. Saya mendengarkan kebutuhan mereka dengan saksama, termasuk hal-hal yang belum disampaikan secara langsung.</p>
-          <p lang="en">My project management work at Gameloft involved managing a team and working with overseas clients. I listened carefully to what clients said and paid attention to needs that were not always stated directly.</p>
-          <p class="experience-connection" lang="id">Pengalaman ini membentuk kebiasaan saya untuk memahami apa yang orang butuhkan dan inginkan sebelum menentukan langkah bersama.</p>
-          <p class="experience-connection" lang="en">That experience informs how I work: understand what people need and want before deciding on the next step together.</p>
-          <a class="experience-source text-link" href="https://www.gameloft.com/" rel="noreferrer"><span><span lang="id">Sumber konteks</span><span lang="en">Context source</span>: Gameloft</span><span class="arrow" aria-hidden="true">↗</span></a>
+      <div class="experience-cards" data-reveal>
+        <article class="experience-card card-pink">
+          <div class="card-head">
+            <span class="card-index">01</span>
+            <h3>Gameloft</h3>
+            <a class="experience-source text-link" href="https://www.gameloft.com/" rel="noreferrer"><span><span lang="id">Sumber konteks</span><span lang="en">Context source</span>: Gameloft</span><span class="arrow" aria-hidden="true">↗</span></a>
+          </div>
+          <div class="card-body">
+            <p lang="id">Di Gameloft, saya bekerja sebagai project manager, mengelola tim dan berkomunikasi dengan klien di luar negeri. Saya mendengarkan kebutuhan mereka dengan saksama, termasuk hal-hal yang belum disampaikan secara langsung.</p>
+            <p lang="en">My project management work at Gameloft involved managing a team and working with overseas clients. I listened carefully to what clients said and paid attention to needs that were not always stated directly.</p>
+            <p class="experience-connection" lang="id">Pengalaman ini membentuk kebiasaan saya untuk memahami apa yang orang butuhkan dan inginkan sebelum menentukan langkah bersama.</p>
+            <p class="experience-connection" lang="en">That experience informs how I work: understand what people need and want before deciding on the next step together.</p>
+          </div>
         </article>
-        <article class="experience-entry" data-reveal>
-          <h3><span class="experience-accent" aria-hidden="true"></span>AccelByte</h3>
-          <p lang="id">Dalam pekerjaan manajemen proyek bersama AccelByte, saya mengelola tim dan bekerja dengan klien di luar negeri. Saya terbiasa menyimak bukan hanya permintaan yang disampaikan, tetapi juga kebutuhan di baliknya.</p>
-          <p lang="en">My project management work with AccelByte included managing a team and working with overseas clients. I paid attention to both their requests and the needs behind them.</p>
-          <p class="experience-connection" lang="id">Dari pengalaman ini, saya membawa perhatian pada konteks: memahami maksud seseorang sama pentingnya dengan mendengar kata-katanya.</p>
-          <p class="experience-connection" lang="en">It reinforced a habit I bring to my work: listen closely, read between the lines, and understand the context of what someone wants.</p>
-          <a class="experience-source text-link" href="https://accelbyte.io/" rel="noreferrer"><span><span lang="id">Sumber konteks</span><span lang="en">Context source</span>: AccelByte</span><span class="arrow" aria-hidden="true">↗</span></a>
+        <article class="experience-card card-sky">
+          <div class="card-head">
+            <span class="card-index">02</span>
+            <h3>AccelByte</h3>
+            <a class="experience-source text-link" href="https://accelbyte.io/" rel="noreferrer"><span><span lang="id">Sumber konteks</span><span lang="en">Context source</span>: AccelByte</span><span class="arrow" aria-hidden="true">↗</span></a>
+          </div>
+          <div class="card-body">
+            <p lang="id">Dalam pekerjaan manajemen proyek bersama AccelByte, saya mengelola tim dan bekerja dengan klien di luar negeri. Saya terbiasa menyimak bukan hanya permintaan yang disampaikan, tetapi juga kebutuhan di baliknya.</p>
+            <p lang="en">My project management work with AccelByte included managing a team and working with overseas clients. I paid attention to both their requests and the needs behind them.</p>
+            <p class="experience-connection" lang="id">Dari pengalaman ini, saya membawa perhatian pada konteks: memahami maksud seseorang sama pentingnya dengan mendengar kata-katanya.</p>
+            <p class="experience-connection" lang="en">It reinforced a habit I bring to my work: listen closely, read between the lines, and understand the context of what someone wants.</p>
+          </div>
         </article>
-        <article class="experience-entry" data-reveal>
-          <h3><span class="experience-accent" aria-hidden="true"></span>Golfer</h3>
-          <span class="experience-label"><span lang="id">Karya portofolio pilihan</span><span lang="en">Selected portfolio work</span></span>
-          <p lang="id">Untuk Golfer, salah satu karya portofolio pilihan saya, saya menangani manajemen proyek, mengelola tim, dan bekerja dengan klien di luar negeri. Mendengarkan dengan saksama membantu saya memahami kebutuhan maupun keinginan yang tidak selalu diungkapkan langsung.</p>
-          <p lang="en">Golfer is selected portfolio work in which I handled project management, managed a team, and worked with overseas clients. Listening carefully helped me understand needs and expectations that were not always expressed directly.</p>
-          <p class="experience-connection" lang="id">Cara kerja ini menekankan pemahaman terhadap orang di balik permintaan, bukan hanya permintaannya.</p>
-          <p class="experience-connection" lang="en">It reflects how I approach a project: understand the people behind a request, as well as the request itself.</p>
-          <a class="experience-source text-link" href="https://topgolfer.app/zh" rel="noreferrer"><span><span lang="id">Sumber konteks</span><span lang="en">Context source</span>: Golfer</span><span class="arrow" aria-hidden="true">↗</span></a>
+        <article class="experience-card card-lilac">
+          <div class="card-head">
+            <span class="card-index">03</span>
+            <h3>Golfer</h3>
+            <span class="experience-label"><span lang="id">Karya portofolio pilihan</span><span lang="en">Selected portfolio work</span></span>
+            <a class="experience-source text-link" href="https://topgolfer.app/zh" rel="noreferrer"><span><span lang="id">Sumber konteks</span><span lang="en">Context source</span>: Golfer</span><span class="arrow" aria-hidden="true">↗</span></a>
+          </div>
+          <div class="card-body">
+            <p lang="id">Untuk Golfer, salah satu karya portofolio pilihan saya, saya menangani manajemen proyek, mengelola tim, dan bekerja dengan klien di luar negeri. Mendengarkan dengan saksama membantu saya memahami kebutuhan maupun keinginan yang tidak selalu diungkapkan langsung.</p>
+            <p lang="en">Golfer is selected portfolio work in which I handled project management, managed a team, and worked with overseas clients. Listening carefully helped me understand needs and expectations that were not always expressed directly.</p>
+            <p class="experience-connection" lang="id">Cara kerja ini menekankan pemahaman terhadap orang di balik permintaan, bukan hanya permintaannya.</p>
+            <p class="experience-connection" lang="en">It reflects how I approach a project: understand the people behind a request, as well as the request itself.</p>
+          </div>
         </article>
-        <article class="experience-entry" data-reveal>
-          <h3><span class="experience-accent" aria-hidden="true"></span><span lang="id">Pengembang Produk Digital Independen</span><span lang="en">Independent Software Builder</span></h3>
-          <p lang="id">Saya membangun perangkat lunak dan alat SaaS untuk menyederhanakan alur kerja sehari-hari. Dalam pekerjaan mandiri ini, saya berfokus pada memahami kebutuhan orang dan membuat langkah berikutnya lebih mudah dipahami.</p>
-          <p lang="en">I build software and SaaS tools that simplify everyday workflows. My independent work focuses on understanding what people need and making the next step easier to follow.</p>
-          <p class="experience-connection" lang="id">Ini menjadi ruang lain bagi kebiasaan yang saya pegang dalam bekerja: mendengarkan dengan saksama, memperhatikan detail, dan menindaklanjuti langkah yang disepakati.</p>
-          <p class="experience-connection" lang="en">It is another setting for the same habits I value across my work: listening carefully, paying attention to detail, and following through.</p>
+        <article class="experience-card card-pearl">
+          <div class="card-head">
+            <span class="card-index">04</span>
+            <h3><span lang="id">Pengembang Produk Digital Independen</span><span lang="en">Independent Software Builder</span></h3>
+          </div>
+          <div class="card-body">
+            <p lang="id">Saya membangun perangkat lunak dan alat SaaS untuk menyederhanakan alur kerja sehari-hari. Dalam pekerjaan mandiri ini, saya berfokus pada memahami kebutuhan orang dan membuat langkah berikutnya lebih mudah dipahami.</p>
+            <p lang="en">I build software and SaaS tools that simplify everyday workflows. My independent work focuses on understanding what people need and making the next step easier to follow.</p>
+            <p class="experience-connection" lang="id">Ini menjadi ruang lain bagi kebiasaan yang saya pegang dalam bekerja: mendengarkan dengan saksama, memperhatikan detail, dan menindaklanjuti langkah yang disepakati.</p>
+            <p class="experience-connection" lang="en">It is another setting for the same habits I value across my work: listening carefully, paying attention to detail, and following through.</p>
+          </div>
         </article>
       </div>
     </section>

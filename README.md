@@ -34,10 +34,22 @@ English links look like `index.html?lang=en`.
 - Confirmed facts: based in Yogyakarta & Jakarta; 10 years of product & project experience; conversations in Bahasa Indonesia & English. No other numbers (no insurance years, clients or amounts) unless Retno confirms them.
 - The portraits and chibi are AI-generated likenesses approved by Retno. Review the likeness before publishing.
 
+## Motion (measured on the Athos reference, athos2.framer.website)
+
+| Where | Athos, as measured in a browser | This site |
+| --- | --- | --- |
+| Hero entrance | Plays once on load. Blocks rise 32px and fade in over ~0.6s, ease-in-out, ~80-200ms apart; header slides down 18px | Same values, 90ms apart |
+| Section reveals | Play once when ~45-75px into view. Rise 32px, fade in ~0.4s. Never replay | Trigger at 60px, 0.42s, never replay; content already on screen is never hidden |
+| Header | Transparent at the top; once scrolled, morphs into a floating white rounded bar (~0.45s, slight spring) | Same, without moving the page |
+| Project cards | 4 sticky cards, each pinned 15px lower; the next card slides over; covered cards shrink ~5% per card, tied to scroll position (reverses), lightly smoothed; all release together | Same for the 4 experience cards. Normal list on phones, with reduced motion, or when a card would not fit the screen |
+| Hover | Button fills ~0.2s; links fade slightly; arrow nudges | Button fills, arrow nudges, ~0.2s |
+
+Our own additions: the slowly moving pastel hero background (pauses off screen). With reduced motion nothing moves.
+
 ## Still needed before publishing
 
 - Confirm name spelling, role titles and both language versions of all copy.
 - Exact Prudential entity, credentials, verification links and logo permission.
 - Optional: LinkedIn link.
 - Optional: two or three personal details, authorized testimonials.
-- Motion based on the Athos reference, once the reference can be inspected.
+- Golfer images (only ones Retno is allowed to use).

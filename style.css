@@ -10,6 +10,8 @@
   --sky: #dff0fc;
   --lilac: #eee9fa;
   --ease: cubic-bezier(.22,.61,.36,1);
+  --ease-in-out: cubic-bezier(.44,0,.56,1);
+  --spring: cubic-bezier(.3,1.12,.4,1);
 }
 
 /* Language: each text exists in Indonesian (lang="id") and English (lang="en").
@@ -44,9 +46,13 @@ h1 em { font-style: italic; }
 .text-link { display: inline-flex; align-items: center; gap: 14px; font-size: 15px; font-weight: 500; transition: color .2s; }
 .arrow { display: inline-block; transition: transform .2s var(--ease); }
 
-/* Header: sits on the hero background at the top, becomes frosted once you scroll. */
-.site-header { position: sticky; top: 0; z-index: 20; min-height: 84px; padding: 18px max(40px, calc((100% - 1200px) / 2)); display: flex; justify-content: space-between; align-items: center; gap: 28px; border-bottom: 1px solid transparent; transition: background-color .25s, box-shadow .25s, border-color .25s; }
-.site-header.is-scrolled { background: #fafafce6; border-color: var(--border); box-shadow: 0 8px 30px #25324408; backdrop-filter: blur(14px); }
+/* Header, after Athos: transparent and full width at the top; once you scroll, the inner bar
+   becomes a floating white rounded bar (about 0.45s, tiny spring). The outer header keeps a
+   fixed height so the page never jumps. */
+.site-header { position: sticky; top: 0; z-index: 20; height: 84px; }
+.header-bar { max-width: 100%; height: 84px; margin: 0 auto; padding: 0 max(40px, calc((100% - 1200px) / 2)); display: flex; justify-content: space-between; align-items: center; gap: 28px; border-radius: 0; transition: max-width .45s var(--spring), height .45s var(--spring), padding .45s var(--spring), transform .45s var(--spring), border-radius .45s, background-color .3s, box-shadow .3s; animation: header-in 800ms var(--ease) 300ms backwards; }
+.is-scrolled .header-bar { max-width: 1160px; height: 64px; padding: 0 12px 0 28px; transform: translateY(12px); border-radius: 40px; background: #ffffffeb; box-shadow: 0 10px 30px #25324414, 0 0 0 1px #25324408; backdrop-filter: blur(14px); }
+@keyframes header-in { from { opacity: 0; transform: translateY(-18px); } }
 .brand { font: 26px Georgia, serif; letter-spacing: -.03em; white-space: nowrap; }
 .site-header nav { display: flex; gap: 28px; font-size: 14px; }
 .site-header nav a { padding: 8px 0; position: relative; transition: color .2s; }
@@ -123,18 +129,29 @@ h1 em { font-style: italic; }
 .role-card p { max-width: 380px; margin-bottom: 26px; }
 .role-card .text-link { border-top: 1px solid var(--border); padding-top: 20px; width: 100%; justify-content: space-between; margin-top: auto; }
 
-.experience { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 64px; align-items: start; }
-.experience-introduction > p { max-width: 33ch; }
-.experience-entry { border-top: 1px solid #cbd5e2; padding: 26px 0 28px; }
-.experience-entry:first-child { padding-top: 0; border-top: 0; }
-.experience-entry:last-child { padding-bottom: 0; }
-.experience-entry h3 { display: flex; align-items: baseline; gap: 12px; font: 28px/1.25 Georgia, serif; letter-spacing: -.03em; margin: 0; }
-.experience-accent { flex: 0 0 9px; height: 9px; background: var(--pink); border: 1px solid #b693a5; border-radius: 3px; }
-.experience-entry:nth-child(even) .experience-accent { background: var(--sky); border-color: #86abc5; border-radius: 50%; }
-.experience-label { display: block; width: fit-content; margin: 10px 0 0 21px; padding: 3px 10px; border-radius: 20px; background: var(--sky); color: var(--blue); font-size: 11px; }
-.experience-entry p { line-height: 1.75; margin: 14px 0 0; }
-.experience-connection { padding-left: 15px; border-left: 2px solid var(--lilac); }
-.experience-source { margin-top: 16px; font-size: 12px; color: var(--blue); }
+.experience-introduction { max-width: 680px; margin: 0 auto 52px; text-align: center; }
+.experience-introduction h2 { margin-bottom: 18px; }
+.experience-cards { display: flex; flex-direction: column; gap: 28px; }
+.experience-card { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 48px; min-height: var(--card-h, auto); padding: 48px 52px; border: 1px solid #ffffffb3; border-radius: 24px; box-shadow: 0 10px 40px -14px #2532441f; transform-origin: 50% 50%; }
+.card-pink { background: #fbedf3; }
+.card-sky { background: #e8f3fc; }
+.card-lilac { background: #efebfa; }
+.card-pearl { background: #f6f4f0; }
+.card-head { display: flex; flex-direction: column; align-items: flex-start; }
+.card-index { font: 18px Georgia, serif; color: var(--blue); }
+.card-head h3 { font: 36px/1.15 Georgia, serif; letter-spacing: -.03em; margin: 14px 0 0; }
+.card-body p { font-size: 17px; line-height: 1.75; margin: 0 0 16px; color: #46546a; }
+.card-body p:last-child { margin-bottom: 0; }
+/* Stacked mode (added by script.js only when every card fits the screen): each card pins
+   15px lower than the one before, and covered cards shrink slightly as you scroll. */
+.experience-cards.is-stacked .experience-card { position: sticky; top: calc(var(--pin, 100px) + var(--k) * 15px); will-change: transform; }
+.experience-card:nth-child(1) { --k: 0; }
+.experience-card:nth-child(2) { --k: 1; }
+.experience-card:nth-child(3) { --k: 2; }
+.experience-card:nth-child(4) { --k: 3; }
+.experience-label { display: block; width: fit-content; margin-top: 14px; padding: 3px 12px; border-radius: 20px; background: #ffffffb3; color: var(--blue); font-size: 12px; }
+.experience-connection { padding-left: 15px; border-left: 2px solid #ffffff; }
+.experience-source { margin-top: auto; padding-top: 24px; font-size: 13px; color: var(--blue); }
 
 .habits { padding: 74px 0 90px; }
 .principles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 40px; }
@@ -158,9 +175,14 @@ footer { max-width: 1200px; margin: auto; display: grid; grid-template-columns: 
 footer p { font-size: 12px; margin-bottom: 8px; }
 footer > .tiny { grid-column: 1 / -1; border-top: 1px solid var(--border); padding-top: 22px; }
 
-/* Motion: sections below the screen wait, then fade up once (see script.js). */
-.waiting { opacity: 0; transform: translateY(16px); }
-.fading-in { transition: opacity 520ms var(--ease), transform 520ms var(--ease); }
+/* Motion, after Athos. Hero entrance: plays once on load, blocks rise 32px over 0.6s,
+   about 90ms apart. Section reveals: sections below the screen wait, then rise 32px over
+   0.42s once they are about 60px into view; they never replay (see script.js). */
+.enter { animation: rise 600ms var(--ease-in-out) backwards; animation-delay: calc(var(--i) * 90ms + 60ms); }
+@keyframes rise { from { opacity: 0; transform: translateY(32px); } }
+.skip-entrance .enter, .skip-entrance .header-bar { animation: none; }
+.waiting { opacity: 0; transform: translateY(32px); }
+.fading-in { transition: opacity 420ms var(--ease-in-out), transform 420ms var(--ease-in-out); }
 .greeting.fading-in .chibi { animation: wave 600ms var(--ease) 120ms backwards; }
 @keyframes wave { from { transform: translateY(8px) rotate(-5deg); } 70% { transform: rotate(3deg); } to { transform: none; } }
 
@@ -175,14 +197,14 @@ footer > .tiny { grid-column: 1 / -1; border-top: 1px solid var(--border); paddi
 
 /* Tablet */
 @media (max-width: 1050px) {
-  .site-header { padding-left: 26px; padding-right: 26px; gap: 20px; }
+  .header-bar { padding-left: 26px; padding-right: 26px; gap: 20px; }
+  .experience-card { grid-template-columns: 1fr; gap: 20px; padding: 40px; }
   .site-header nav { gap: 18px; font-size: 13px; }
   .hero { padding-left: 32px; padding-right: 32px; }
   .hero-strip { flex-wrap: wrap; }
   .facts div:first-child { border-left: 0; padding-left: 0; }
   .content { padding: 0 38px; }
   .about { gap: 38px; }
-  .experience { gap: 35px; }
   .section { padding: 75px 0; }
   .roles { padding: 44px 30px; }
   .role-card { padding: 28px; }
@@ -192,7 +214,9 @@ footer > .tiny { grid-column: 1 / -1; border-top: 1px solid var(--border); paddi
 /* Phone */
 @media (max-width: 700px) {
   html { scroll-padding-top: 120px; }
-  .site-header { padding: 14px 20px 10px; min-height: auto; display: grid; grid-template-columns: 1fr auto; gap: 8px 16px; }
+  .site-header { height: 96px; }
+  .header-bar { height: 96px; padding: 0 20px; display: grid; grid-template-columns: 1fr auto; align-content: center; gap: 8px 16px; }
+  .is-scrolled .header-bar { max-width: calc(100% - 16px); height: 86px; padding: 0 16px; transform: translateY(6px); border-radius: 22px; }
   .brand { font-size: 22px; }
   .site-header nav { grid-column: 1 / -1; grid-row: 2; justify-content: space-between; gap: 10px; font-size: 12px; }
   .site-header nav a { padding: 5px 0; }
@@ -200,7 +224,7 @@ footer > .tiny { grid-column: 1 / -1; border-top: 1px solid var(--border); paddi
   .languages { font-size: 11px; }
   .hero { min-height: auto; padding: 20px 22px 30px; }
   .hero-main { padding: 36px 0 44px; }
-  .backdrop { top: -110px; }
+  .backdrop { top: -96px; }
   h1 { font-size: clamp(40px, 11vw, 54px); line-height: 1.1; }
   h2 { font-size: 35px; }
   .eyebrow { font-size: 11px; }
@@ -227,9 +251,11 @@ footer > .tiny { grid-column: 1 / -1; border-top: 1px solid var(--border); paddi
   .role-grid { grid-template-columns: 1fr; gap: 18px; }
   .role-card { padding: 26px; }
   .role-card h3 { font-size: 27px; }
-  .experience { grid-template-columns: 1fr; gap: 24px; }
-  .experience-introduction > p { max-width: none; }
-  .experience-entry h3 { font-size: 27px; }
+  .experience-introduction { text-align: left; margin-bottom: 32px; }
+  .experience-cards { gap: 18px; }
+  .experience-card { padding: 28px 24px; border-radius: 20px; }
+  .card-head h3 { font-size: 28px; }
+  .card-body p { font-size: 16px; }
   .principles { grid-template-columns: 1fr; gap: 22px; margin-top: 30px; }
   .principles article { padding: 21px 0 0 45px; position: relative; }
   .principles .number { position: absolute; left: 0; top: 20px; }
@@ -251,5 +277,6 @@ footer > .tiny { grid-column: 1 / -1; border-top: 1px solid var(--border); paddi
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .waiting { opacity: 1; transform: none; }
+  .experience-card { transform: none !important; }
   .button:hover, .button:active, .role-card:hover, .arrow { transform: none !important; }
 }

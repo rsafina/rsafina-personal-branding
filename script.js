@@ -36,14 +36,77 @@
     new IntersectionObserver(([entry]) => backdrop.classList.toggle('is-paused', !entry.isIntersecting)).observe(backdrop);
   }
 
-  // Gentle fade-in, played once per section. Only sections still below the screen are
-  // hidden first, so something you can already see never disappears and fades back.
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  // Keyboard users never wait for the entrance: the first key press completes it.
+  addEventListener('keydown', () => document.documentElement.classList.add('skip-entrance'), { once: true });
+
+  // Experience cards, after Athos: each card pins 15px lower than the one before and the
+  // next card slides over it. A covered card shrinks 5% per card that has arrived on top,
+  // following the scroll position (so it reverses when scrolling up), lightly smoothed.
+  // Only used when every card fits on screen; otherwise the cards stay a normal list.
+  const stack = document.querySelector('.experience-cards');
+  if (stack) {
+    const cards = [...stack.children];
+    const SHRINK = .05, APPROACH = 400, STEP = 15;
+    let naturalTops = [], pin = 0, current = cards.map(() => 1), frame = 0, stacked = false;
+
+    function docTop(element) { let top = 0; for (let e = element; e; e = e.offsetParent) top += e.offsetTop; return top; }
+    function layout() {
+      stack.classList.remove('is-stacked');
+      stack.style.removeProperty('--card-h');
+      cards.forEach(card => { card.style.transform = ''; });
+      current = cards.map(() => 1);
+      pin = header.offsetHeight + 16;
+      const tallest = Math.max(...cards.map(card => card.offsetHeight));
+      const fits = tallest + pin + STEP * (cards.length - 1) + 24 <= innerHeight;
+      stacked = fits && innerWidth >= 900 && !reduceMotion.matches;
+      if (!stacked) return;
+      // Equal heights let all cards release together at the end of the section.
+      stack.style.setProperty('--card-h', `${tallest}px`);
+      stack.style.setProperty('--pin', `${pin}px`);
+      naturalTops = cards.map(docTop);
+      stack.classList.add('is-stacked');
+      requestFrame();
+    }
+    function targets() {
+      // How far each card has arrived on top of the stack: 0 until it is APPROACH px from its pin, 1 once pinned.
+      const arrived = naturalTops.map((top, i) => Math.min(1, Math.max(0, 1 - (top - scrollY - (pin + i * STEP)) / APPROACH)));
+      return cards.map((_, i) => 1 - SHRINK * arrived.slice(i + 1).reduce((sum, value) => sum + value, 0));
+    }
+    function render() {
+      frame = 0;
+      if (!stacked) return;
+      let moving = false;
+      targets().forEach((target, i) => {
+        current[i] += (target - current[i]) * .2;
+        if (Math.abs(target - current[i]) > .0005) moving = true; else current[i] = target;
+        cards[i].style.transform = current[i] === 1 ? '' : `scale(${current[i].toFixed(4)})`;
+      });
+      if (moving) requestFrame();
+    }
+    function requestFrame() { if (!frame) frame = requestAnimationFrame(render); }
+    addEventListener('scroll', () => { if (stacked) requestFrame(); }, { passive: true });
+    let resizeTimer;
+    addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(layout, 150); });
+    addEventListener('load', layout);
+    reduceMotion.addEventListener('change', layout);
+    // A keyboard user moving into a covered card gets scrolled to where that card is on top.
+    stack.addEventListener('focusin', event => {
+      if (!stacked) return;
+      const i = cards.indexOf(event.target.closest('.experience-card'));
+      const top = naturalTops[i] - (pin + i * STEP);
+      if (i >= 0 && Math.abs(scrollY - top) > 4) scrollTo({ top, behavior: 'instant' });
+    });
+    layout();
+  }
+
+  // Section reveals, after Athos: play once per section. Only sections still below the screen
+  // are hidden first, so something you can already see never disappears and fades back.
   if (reduceMotion.matches || !('IntersectionObserver' in window)) return;
   const observer = new IntersectionObserver(entries => entries.forEach(entry => {
     if (!entry.isIntersecting) return;
     show(entry.target, true);
-  }), { threshold: .12, rootMargin: '0px 0px -24px 0px' });
+  }), { threshold: 0, rootMargin: '0px 0px -60px 0px' });
   function show(element, animate) {
     observer.unobserve(element);
     element.classList.remove('waiting');
