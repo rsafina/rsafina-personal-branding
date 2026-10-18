@@ -30,6 +30,12 @@
   updateHeader();
   addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(updateHeader); } }, { passive: true });
 
+  // The hero's moving light pauses while it is off screen.
+  const backdrop = document.querySelector('.backdrop');
+  if (backdrop && 'IntersectionObserver' in window) {
+    new IntersectionObserver(([entry]) => backdrop.classList.toggle('is-paused', !entry.isIntersecting)).observe(backdrop);
+  }
+
   // Gentle fade-in, played once per section. Only sections still below the screen are
   // hidden first, so something you can already see never disappears and fades back.
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');

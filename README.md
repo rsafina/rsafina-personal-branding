@@ -13,7 +13,7 @@ Double-click `index.html`. Use the **ID / EN** switch at the top right to change
 | `index.html` | Homepage: about, two roles, experience, principles, contact |
 | `prudential.html` | Insurance page |
 | `style.css` | Colors, layout, phone sizes |
-| `script.js` | Language switch, header, and the gentle fade-in |
+| `script.js` | Language switch, header, gentle fade-in, pausing the hero's moving light off screen |
 | `images/` | The three pictures the pages use |
 | `images/originals/` | Approved full-size originals: `retno-introduction-v3.png`, `retno-insurance-v3.png`, `retno-chibi-wave.png` |
 | `personal-website-guide.md` | The original brief |
@@ -30,13 +30,14 @@ English links look like `index.html?lang=en`.
 - Do not add contributions, achievements, dates or metrics that Retno has not confirmed. Experience text comes only from her own account: project management, managing teams, overseas clients, careful listening and understanding unstated needs.
 - Golfer is "selected portfolio work". Its only source is https://topgolfer.app/zh. No third-party images until permission is confirmed.
 - Insurance: never promise acceptance, approval, guaranteed returns, or benefits beyond the policy. The process, FAQ and discussion questions stay out until Retno confirms her service scope.
-- No fake contact links. Replace "Contact channels have not been published yet" only with real, confirmed destinations.
+- Contact: WhatsApp 0878-3779-2220 (`wa.me/6287837792220`) and rsafinaeni@gmail.com, confirmed by Retno. Never add placeholder links.
+- Confirmed facts: based in Yogyakarta & Jakarta; 10 years of product & project experience; conversations in Bahasa Indonesia & English. No other numbers (no insurance years, clients or amounts) unless Retno confirms them.
 - The portraits and chibi are AI-generated likenesses approved by Retno. Review the likeness before publishing.
 
 ## Still needed before publishing
 
 - Confirm name spelling, role titles and both language versions of all copy.
 - Exact Prudential entity, credentials, verification links and logo permission.
-- Real contact links (professional/LinkedIn and insurance).
+- Optional: LinkedIn link.
 - Optional: two or three personal details, authorized testimonials.
 - Motion based on the Athos reference, once the reference can be inspected.
