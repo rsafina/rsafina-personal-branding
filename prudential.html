@@ -109,12 +109,17 @@
         <p lang="id">Bukan cerita yang sempurna, tapi cerita yang membentuk cara saya bekerja hari ini.</p>
         <p lang="en">Not a perfect story, but the one that shaped how I work today.</p>
       </div>
-      <!-- Desktop: a timeline. Phones: one full-width card per chapter, swiped sideways (see script.js). -->
-      <div class="swipe journey-swipe">
-        <ol class="timeline swipe-track" aria-label="Perjalanan saya / My journey">
-          <li class="timeline-item" data-reveal>
-            <div class="timeline-marker" aria-hidden="true"><img src="images/journey-1.webp" width="360" height="360" alt=""></div>
-            <div class="timeline-content">
+      <!-- Large screens: story scroll, a pinned chibi that changes with the chapter in the middle of the
+           screen. Phones and small tablets: one full-width card per chapter, swiped sideways (see script.js). -->
+      <div class="journey-story swipe">
+        <div class="story-figure" aria-hidden="true">
+          <div class="figure-stage"><img src="images/journey-1.webp" width="360" height="360" alt=""><img src="images/journey-2.webp" width="360" height="360" alt=""><img src="images/journey-3.webp" width="360" height="360" alt=""><img src="images/journey-4.webp" width="360" height="360" alt=""><img src="images/journey-5.webp" width="360" height="360" alt=""></div>
+          <ol class="story-progress"><li></li><li></li><li></li><li></li><li></li></ol>
+        </div>
+        <ol class="story-steps swipe-track" aria-label="Perjalanan saya / My journey">
+          <li class="story-step">
+            <div class="step-marker" aria-hidden="true"><img src="images/journey-1.webp" width="360" height="360" alt=""></div>
+            <div class="step-content">
               <h3><span lang="id">Dari nol</span><span lang="en">Starting from zero</span></h3>
               <p lang="id">Orang tua saya bekerja sebagai buruh harian lepas, dan waktu kecil saya sering sakit-sakitan. Kami tidak punya banyak. Dari situ saya belajar memperhatikan hal-hal kecil dan mendengarkan dengan sungguh-sungguh.</p>
               <p lang="en">My parents worked as day labourers, and I was often ill as a child. We didn’t have much. That is where I learned to notice small things and to listen properly.</p>
@@ -122,9 +127,9 @@
               <blockquote class="pull-quote" lang="en">“I didn’t start with much, but I learned to pay attention.”</blockquote>
             </div>
           </li>
-          <li class="timeline-item" data-reveal>
-            <div class="timeline-marker" aria-hidden="true"><img src="images/journey-2.webp" width="360" height="360" alt=""></div>
-            <div class="timeline-content">
+          <li class="story-step">
+            <div class="step-marker" aria-hidden="true"><img src="images/journey-2.webp" width="360" height="360" alt=""></div>
+            <div class="step-content">
               <h3><span lang="id">Belajar IT</span><span lang="en">Learning IT</span></h3>
               <p lang="id">Saya belajar IT di sekolah. Sayangnya, saya tidak bisa melanjutkan pendidikan karena biaya. Meski begitu, langkah pertama itulah yang akhirnya membawa saya bekerja di dunia IT.</p>
               <p lang="en">I studied IT at school. Unfortunately, I couldn’t continue my education because of the cost. Even so, that first step is what eventually brought me into IT work.</p>
@@ -132,9 +137,9 @@
               <blockquote class="pull-quote" lang="en">“A step that stops is not the end of the road.”</blockquote>
             </div>
           </li>
-          <li class="timeline-item" data-reveal>
-            <div class="timeline-marker" aria-hidden="true"><img src="images/journey-3.webp" width="360" height="360" alt=""></div>
-            <div class="timeline-content">
+          <li class="story-step">
+            <div class="step-marker" aria-hidden="true"><img src="images/journey-3.webp" width="360" height="360" alt=""></div>
+            <div class="step-content">
               <h3><span lang="id">Sepuluh tahun menjembatani</span><span lang="en">Ten years of bridging</span></h3>
               <p lang="id">Selama 10 tahun di bidang produk dan proyek, saya mengelola tim dan bekerja dengan klien di luar negeri, termasuk di Gameloft dan AccelByte. Tugas saya menjembatani hal teknis dengan orang-orang di baliknya, dan kuncinya sering kali adalah mendengarkan apa yang tidak diucapkan langsung.</p>
               <p lang="en">Over 10 years in product and project work, I managed teams and worked with overseas clients, including at Gameloft and AccelByte. My job was to bridge technical work and the people behind it, and the key was often listening for what wasn’t said directly.</p>
@@ -142,9 +147,9 @@
               <blockquote class="pull-quote" lang="en">“The most important needs often go unsaid.”</blockquote>
             </div>
           </li>
-          <li class="timeline-item" data-reveal>
-            <div class="timeline-marker" aria-hidden="true"><img src="images/journey-4.webp" width="360" height="360" alt=""></div>
-            <div class="timeline-content">
+          <li class="story-step">
+            <div class="step-marker" aria-hidden="true"><img src="images/journey-4.webp" width="360" height="360" alt=""></div>
+            <div class="step-content">
               <h3><span lang="id">Bertemu Prudential</span><span lang="en">Meeting Prudential</span></h3>
               <p lang="id">Saya mengenal Vivi Agustina, yang kini menjadi leader saya, di sebuah acara kantor. Kami saling berbagi cerita perjalanan hidup dan langsung merasa cocok. Dari percakapan itu, saya mengenal Prudential dan bergabung bersama Inspiring Agency pada 2026.</p>
               <p lang="en">I met Vivi Agustina, now my leader, at a work event. We shared the stories of how we got here and clicked straight away. Through those conversations I came to know Prudential, and I joined Inspiring Agency in 2026.</p>
@@ -152,9 +157,9 @@
               <blockquote class="pull-quote" lang="en">“Sometimes a new path starts with one honest conversation.”</blockquote>
             </div>
           </li>
-          <li class="timeline-item" data-reveal>
-            <div class="timeline-marker" aria-hidden="true"><img src="images/journey-5.webp" width="360" height="360" alt=""></div>
-            <div class="timeline-content">
+          <li class="story-step">
+            <div class="step-marker" aria-hidden="true"><img src="images/journey-5.webp" width="360" height="360" alt=""></div>
+            <div class="step-content">
               <h3><span lang="id">Hari ini</span><span lang="en">Today</span></h3>
               <p lang="id">Kini saya menjalani dua peran: di dunia IT dan sebagai agen asuransi Prudential. Di keduanya, cara saya sama: mendengarkan dulu, menjelaskan dengan jelas, lalu menindaklanjuti langkah yang disepakati.</p>
               <p lang="en">Today I work in two roles: in IT and as a Prudential insurance agent. In both, my approach is the same: listen first, explain clearly, then follow through on what we agree.</p>

@@ -132,6 +132,25 @@
     layout();
   });
 
+  // Story scroll (journey on large screens): the pinned chibi and dots follow the chapter
+  // in the middle of the screen, and that chapter is highlighted.
+  document.querySelectorAll('.journey-story').forEach(story => {
+    const figures = [...story.querySelectorAll('.story-figure img')];
+    const marks = [...story.querySelectorAll('.story-progress li')];
+    const steps = [...story.querySelectorAll('.story-step')];
+    const activate = index => {
+      figures.forEach((figure, i) => figure.classList.toggle('is-active', i === index));
+      marks.forEach((mark, i) => mark.classList.toggle('is-active', i === index));
+      steps.forEach((step, i) => step.classList.toggle('is-active', i === index));
+    };
+    activate(0);
+    if (!('IntersectionObserver' in window)) return;
+    const watcher = new IntersectionObserver(entries => entries.forEach(entry => {
+      if (entry.isIntersecting) activate(steps.indexOf(entry.target));
+    }), { rootMargin: '-45% 0px -45% 0px' });
+    steps.forEach(step => watcher.observe(step));
+  });
+
   // Swipe cards (journey on phones): arrows and dots for a row that can also be swiped.
   // On larger screens the same list is a timeline and these controls are hidden.
   document.querySelectorAll('.swipe').forEach(swipe => {

@@ -11,7 +11,7 @@ Double-click `index.html`. Use the **ID / EN** switch at the top right to change
 | File | What it is |
 | --- | --- |
 | `index.html` | Homepage: about, two roles, experience, principles, contact |
-| `prudential.html` | Insurance page: hero with profile card, introduction, 5-chapter journey (timeline on desktop, swipe cards on phones), contact |
+| `prudential.html` | Insurance page: hero with profile card, introduction, 5-chapter journey (story scroll on large screens, swipe cards on phones), contact |
 | `style.css` | Colors, layout, phone sizes |
 | `script.js` | Language switch, header, gentle fade-in, pausing the hero's moving light off screen |
 | `images/` | The pictures the pages use (portraits, chibi, journey chibis) |
@@ -28,7 +28,7 @@ English links look like `index.html?lang=en`.
 
 Each chapter of "Perjalanan saya" has a half-body chibi: `images/journey-1.webp` (Dari nol), `journey-2` (Belajar IT), `journey-3` (Sepuluh tahun menjembatani), `journey-4` (Bertemu Prudential), `journey-5` (Hari ini). These are 360px copies made from the full-size transparent PNGs in `images/originals/`. To replace one, put the new PNG in `images/originals/` and make a new 360px WebP with the same name (or ask Claude to).
 
-Layout: on desktop and tablet the chapters form a timeline (a soft line, each chibi in a pastel circle). On phones each chapter is a full-width pastel card; visitors swipe sideways, one card at a time, with arrows and dots below. The chibis wave every few seconds (still with reduced motion).
+Layout: on large screens (above 900px) a pastel panel on the left pins one chibi that changes to match the chapter in the middle of the screen, with progress dots; the current chapter is highlighted. On phones and small tablets each chapter is a full-width pastel card; visitors swipe sideways, one card at a time, with arrows and dots below. The chibis wave every few seconds (still with reduced motion).
 
 ## Content rules
 

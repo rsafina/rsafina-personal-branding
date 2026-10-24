@@ -172,19 +172,53 @@ h1 em { font-style: italic; }
 .info-table dd { margin: 0; font-size: 15px; color: var(--ink); overflow-wrap: anywhere; }
 .info-table a { color: var(--blue); text-decoration: underline; text-decoration-color: #9fb4c8; text-underline-offset: 3px; }
 
-/* Journey. Desktop: a timeline, a soft line with each chapter's chibi in a pastel circle.
-   Phones: one full-width pastel card per chapter, swiped sideways (see the phone rules and script.js). */
+/* Journey. Large screens: story scroll, one pinned chibi that changes with the chapter in the middle
+   of the screen. Phones and small tablets: one full-width pastel card per chapter, swiped sideways. */
 .journey-introduction { max-width: 640px; margin-bottom: 44px; }
-.timeline { position: relative; list-style: none; margin: 0; padding: 0; }
-.timeline::before { content: ''; position: absolute; left: 69px; top: 30px; bottom: 30px; width: 2px; background: linear-gradient(#f2c3d9, #ddd2f7, #b9dcf6); }
-.timeline-item { display: grid; grid-template-columns: 140px minmax(0, 1fr); gap: 40px; align-items: center; padding: 22px 0; }
-.timeline-marker { position: relative; width: 140px; height: 140px; display: grid; place-items: end center; overflow: hidden; border: 2px solid #f2c3d9; border-radius: 50%; background: #fdf3f8; box-shadow: 0 8px 26px -12px #2532443d; }
-.timeline-item:nth-child(even) .timeline-marker { border-color: #b9dcf6; background: #f1f8fe; }
-.timeline-marker img { width: 92%; height: auto; }
-.timeline-content h3 { font: 30px/1.2 Georgia, serif; letter-spacing: -.03em; margin: 0 0 12px; }
-.timeline-content p { font-size: 17px; line-height: 1.8; margin: 0 0 18px; }
+.journey-story { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 64px; align-items: start; }
+.story-figure { position: sticky; top: 130px; height: min(520px, calc(100vh - 200px)); display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 28px; background: linear-gradient(150deg, #fdf0f6, #f3f0fb 55%, #e8f4fd); box-shadow: 0 10px 40px -16px #2532442e; }
+.figure-stage { position: relative; width: min(300px, 80%); aspect-ratio: 1; transform-origin: 50% 90%; }
+.story-figure img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; opacity: 0; transform: translateY(12px) scale(.96); transition: opacity .5s var(--calm), transform .7s var(--calm); }
+.story-figure img.is-active { opacity: 1; transform: none; }
+.story-progress { display: flex; gap: 8px; list-style: none; margin: 26px 0 0; padding: 0; }
+.story-progress li { width: 8px; height: 8px; border-radius: 6px; background: #cbd5e2; transition: width .4s var(--calm), background-color .4s; }
+.story-progress li.is-active { width: 26px; background: var(--blue); }
+.story-steps { list-style: none; margin: 0; padding: 0; }
+.story-step { min-height: 56vh; display: flex; flex-direction: column; justify-content: center; padding: 40px 0; opacity: .6; transition: opacity .5s var(--calm); }
+.story-step.is-active { opacity: 1; }
+.step-marker { display: none; }
+.step-content h3 { font: 34px/1.2 Georgia, serif; letter-spacing: -.03em; margin: 0 0 16px; }
+.step-content p { font-size: 17px; line-height: 1.8; margin: 0 0 18px; }
 .pull-quote { margin: 0; padding: 4px 0 4px 18px; border-left: 2px solid #f2c3d9; font: 21px/1.45 Georgia, serif; letter-spacing: -.01em; color: var(--ink); }
 .swipe-controls { display: none; }
+
+/* Phones and small tablets: the journey becomes swipe cards. */
+@media (max-width: 900px) {
+  .journey-story { display: block; }
+  .story-figure { display: none; }
+  .story-step { min-height: 0; opacity: 1; }
+  .journey-story .story-steps { display: flex; align-items: stretch; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; margin: 0 -38px; padding: 4px 38px 18px; scroll-padding: 0 38px; scrollbar-width: none; }
+  .journey-story .story-steps::-webkit-scrollbar { display: none; }
+  .journey-story .story-steps:focus-visible { outline: 3px solid var(--blue); outline-offset: -3px; border-radius: 24px; }
+  .journey-story .story-step { flex: 0 0 100%; justify-content: flex-start; padding: 26px 22px; scroll-snap-align: start; scroll-snap-stop: always; border: 1px solid #ffffffb3; border-radius: 24px; background: #fbedf3; box-shadow: 0 10px 30px -18px #2532443d; }
+  .journey-story .story-step:nth-child(2) { background: #e8f3fc; }
+  .journey-story .story-step:nth-child(3) { background: #efebfa; }
+  .journey-story .story-step:nth-child(4) { background: #f6f4f0; }
+  .journey-story .story-step:nth-child(5) { background: #fdf0e9; }
+  .step-marker { display: grid; place-items: end center; width: 104px; height: 104px; margin-bottom: 18px; overflow: hidden; border: 2px solid #f2c3d9; border-radius: 50%; background: #ffffffb3; box-shadow: 0 8px 26px -12px #2532443d; }
+  .story-step:nth-child(even) .step-marker { border-color: #b9dcf6; }
+  .step-marker img { width: 92%; height: auto; transform-origin: 50% 90%; }
+  .step-content h3 { font-size: 27px; }
+  .step-content p { font-size: 16px; }
+  .pull-quote { font-size: 19px; }
+  .swipe-controls { display: flex; justify-content: center; align-items: center; gap: 18px; margin-top: 6px; }
+  .swipe-arrow { width: 46px; height: 46px; border: 1px solid #cfd8e3; border-radius: 50%; background: #fff; color: var(--ink); font-size: 18px; cursor: pointer; transition: background-color .2s, opacity .2s; }
+  .swipe-arrow:disabled { opacity: .35; cursor: default; }
+  .swipe-arrow:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+  .swipe-dots { display: flex; gap: 6px; }
+  .swipe-dots span { width: 8px; height: 8px; border-radius: 6px; background: #cbd5e2; transition: width .3s var(--calm), background-color .3s; }
+  .swipe-dots span.is-active { width: 22px; background: var(--blue); }
+}
 .prose .pull-quote { margin-bottom: 24px; }
 .habits { padding: 74px 0 90px; }
 .principles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 40px; }
@@ -217,13 +251,12 @@ footer > .tiny { grid-column: 1 / -1; border-top: 1px solid var(--border); paddi
 .waiting { opacity: 0; transform: translateY(18px); }
 .fading-in { transition: opacity 700ms var(--calm), transform 800ms var(--calm); }
 .greeting.fading-in .chibi { animation: wave 600ms var(--ease) 120ms backwards; }
-.timeline-marker img { transform-origin: 50% 90%; }
-/* Journey chibis wave (about 0.6s), rest about 5s, and repeat; staggered so they don't move in sync. */
-.timeline-marker img { animation: wave-loop 5.6s ease-in-out infinite; }
-.timeline-item:nth-child(2) .timeline-marker img { animation-delay: .9s; }
-.timeline-item:nth-child(3) .timeline-marker img { animation-delay: 1.8s; }
-.timeline-item:nth-child(4) .timeline-marker img { animation-delay: 2.7s; }
-.timeline-item:nth-child(5) .timeline-marker img { animation-delay: 3.6s; }
+/* Journey chibis wave (about 0.6s), rest about 5s, and repeat; on phones staggered per card. */
+.figure-stage, .step-marker img { animation: wave-loop 5.6s ease-in-out infinite; }
+.story-step:nth-child(2) .step-marker img { animation-delay: .9s; }
+.story-step:nth-child(3) .step-marker img { animation-delay: 1.8s; }
+.story-step:nth-child(4) .step-marker img { animation-delay: 2.7s; }
+.story-step:nth-child(5) .step-marker img { animation-delay: 3.6s; }
 @keyframes wave-loop { 0%, 11%, 100% { transform: none; } 4% { transform: translateY(3px) rotate(-5deg); } 8% { transform: rotate(3deg); } }
 @keyframes wave { from { transform: translateY(8px) rotate(-5deg); } 70% { transform: rotate(3deg); } to { transform: none; } }
 
@@ -302,30 +335,9 @@ footer > .tiny { grid-column: 1 / -1; border-top: 1px solid var(--border); paddi
   .card-head h3 { font-size: 28px; }
   .card-body p { font-size: 16px; }
   .principles { grid-template-columns: 1fr; gap: 22px; margin-top: 30px; }
+  .journey-story .story-steps { margin: 0 -24px; padding: 4px 24px 18px; scroll-padding: 0 24px; }
   .info-table { padding: 16px 18px; }
   .info-table div { grid-template-columns: 96px 1fr; gap: 10px; }
-  /* Phone journey: one full-width card per chapter that snaps into place, like changing screens. */
-  .journey-swipe .timeline { display: flex; align-items: stretch; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; margin: 0 -24px; padding: 4px 24px 18px; scroll-padding: 0 24px; scrollbar-width: none; }
-  .journey-swipe .timeline::-webkit-scrollbar { display: none; }
-  .journey-swipe .timeline:focus-visible { outline: 3px solid var(--blue); outline-offset: -3px; border-radius: 24px; }
-  .journey-swipe .timeline::before { display: none; }
-  .journey-swipe .timeline-item { flex: 0 0 100%; display: flex; flex-direction: column; gap: 0; padding: 26px 22px; scroll-snap-align: start; scroll-snap-stop: always; border: 1px solid #ffffffb3; border-radius: 24px; background: #fbedf3; box-shadow: 0 10px 30px -18px #2532443d; }
-  .journey-swipe .timeline-item:nth-child(2) { background: #e8f3fc; }
-  .journey-swipe .timeline-item:nth-child(3) { background: #efebfa; }
-  .journey-swipe .timeline-item:nth-child(4) { background: #f6f4f0; }
-  .journey-swipe .timeline-item:nth-child(5) { background: #fdf0e9; }
-  .journey-swipe .timeline-item.waiting { opacity: 1; transform: none; }
-  .journey-swipe .timeline-marker { width: 104px; height: 104px; margin-bottom: 18px; background: #ffffffb3; }
-  .timeline-content h3 { font-size: 27px; }
-  .timeline-content p { font-size: 16px; }
-  .pull-quote { font-size: 19px; }
-  .swipe-controls { display: flex; justify-content: center; align-items: center; gap: 18px; margin-top: 6px; }
-  .swipe-arrow { width: 46px; height: 46px; border: 1px solid #cfd8e3; border-radius: 50%; background: #fff; color: var(--ink); font-size: 18px; cursor: pointer; transition: background-color .2s, opacity .2s; }
-  .swipe-arrow:disabled { opacity: .35; cursor: default; }
-  .swipe-arrow:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
-  .swipe-dots { display: flex; gap: 6px; }
-  .swipe-dots span { width: 8px; height: 8px; border-radius: 6px; background: #cbd5e2; transition: width .3s var(--calm), background-color .3s; }
-  .swipe-dots span.is-active { width: 22px; background: var(--blue); }
   .principles article { padding: 21px 0 0 45px; position: relative; }
   .principles .number { position: absolute; left: 0; top: 20px; }
   .principles h3 { margin: 0 0 12px; }
