@@ -219,6 +219,8 @@ footer > .tiny { grid-column: 1 / -1; border-top: 1px solid var(--border); paddi
 .waiting { opacity: 0; transform: translateY(18px); }
 .fading-in { transition: opacity 700ms var(--calm), transform 800ms var(--calm); }
 .greeting.fading-in .chibi { animation: wave 600ms var(--ease) 120ms backwards; }
+.chapter-chibi { transform-origin: 50% 85%; }
+.chapter.fading-in .chapter-chibi { animation: wave 600ms var(--ease) 250ms backwards; }
 @keyframes wave { from { transform: translateY(8px) rotate(-5deg); } 70% { transform: rotate(3deg); } to { transform: none; } }
 
 @media (hover: hover) and (pointer: fine) {
@@ -301,7 +303,10 @@ footer > .tiny { grid-column: 1 / -1; border-top: 1px solid var(--border); paddi
   .info-table div { grid-template-columns: 96px 1fr; gap: 10px; }
   .chapter { grid-template-columns: 1fr; gap: 14px; padding: 26px 0; }
   .chapter-head h3 { font-size: 26px; }
-  .chapter-chibi { height: 120px; margin: 0 8px 0 12px; }
+  /* Phone: a small chibi in the bottom-right corner of the quote, about 15% of its width. */
+  .chapter { position: relative; }
+  .chapter-chibi { position: absolute; right: 0; bottom: 26px; width: 15%; height: auto; margin: 0; }
+  .chapter-body blockquote { min-height: 64px; padding-right: 19%; }
   .chapter-body p { font-size: 16px; }
   .chapter-body blockquote, .pull-quote { font-size: 19px; }
   .principles article { padding: 21px 0 0 45px; position: relative; }
