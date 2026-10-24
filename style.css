@@ -220,7 +220,13 @@ footer > .tiny { grid-column: 1 / -1; border-top: 1px solid var(--border); paddi
 .fading-in { transition: opacity 700ms var(--calm), transform 800ms var(--calm); }
 .greeting.fading-in .chibi { animation: wave 600ms var(--ease) 120ms backwards; }
 .chapter-chibi { transform-origin: 50% 85%; }
-.chapter.fading-in .chapter-chibi { animation: wave 600ms var(--ease) 250ms backwards; }
+/* Journey chibis wave (about 0.6s), rest about 5s, and repeat; staggered so they don't move in sync. */
+.chapter-chibi.is-loaded { animation: wave-loop 5.6s ease-in-out infinite; }
+.chapter:nth-child(2) .chapter-chibi { animation-delay: .9s; }
+.chapter:nth-child(3) .chapter-chibi { animation-delay: 1.8s; }
+.chapter:nth-child(4) .chapter-chibi { animation-delay: 2.7s; }
+.chapter:nth-child(5) .chapter-chibi { animation-delay: 3.6s; }
+@keyframes wave-loop { 0%, 11%, 100% { transform: none; } 4% { transform: translateY(3px) rotate(-5deg); } 8% { transform: rotate(3deg); } }
 @keyframes wave { from { transform: translateY(8px) rotate(-5deg); } 70% { transform: rotate(3deg); } to { transform: none; } }
 
 @media (hover: hover) and (pointer: fine) {
