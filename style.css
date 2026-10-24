@@ -158,6 +158,22 @@ h1 em { font-style: italic; }
 .experience-connection { padding-left: 15px; border-left: 2px solid #ffffff; }
 .experience-source { margin-top: auto; padding-top: 24px; font-size: 13px; color: var(--blue); }
 
+.info-table { margin: 30px 0 0; padding: 22px 26px; border: 1px solid #ffffffb3; border-radius: 20px; background: linear-gradient(135deg, #e9f4fd, #f6f3fc 60%, #fcf0f6); box-shadow: 0 10px 34px -16px #2532442e; }
+.info-table div { display: grid; grid-template-columns: 120px 1fr; gap: 16px; padding: 9px 0; border-bottom: 1px solid #ffffffcc; }
+.info-table div:last-child { border-bottom: 0; }
+.info-table dt { font-size: 13px; color: var(--muted); }
+.info-table dd { margin: 0; font-size: 15px; color: var(--ink); overflow-wrap: anywhere; }
+.info-table a { color: var(--blue); text-decoration: underline; text-decoration-color: #9fb4c8; text-underline-offset: 3px; }
+
+/* Journey: numbered chapters, each with a short story and one pull quote. */
+.journey-introduction { max-width: 640px; margin-bottom: 44px; }
+.chapters { list-style: none; margin: 0; padding: 0; }
+.chapter { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 48px; padding: 34px 0; border-top: 1px solid #c7d1df; }
+.chapter-head { display: flex; align-items: baseline; gap: 18px; }
+.chapter-number { font: 23px Georgia, serif; color: var(--blue); }
+.chapter-head h3 { font: 30px/1.2 Georgia, serif; letter-spacing: -.03em; margin: 0; }
+.chapter-body p { font-size: 17px; margin: 0 0 18px; }
+.chapter-body blockquote { margin: 0; padding: 4px 0 4px 18px; border-left: 2px solid #f2c3d9; font: 21px/1.45 Georgia, serif; letter-spacing: -.01em; color: var(--ink); }
 .habits { padding: 74px 0 90px; }
 .principles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 40px; }
 .principles article { border-top: 1px solid #c7d1df; padding-top: 22px; }
@@ -210,6 +226,7 @@ footer > .tiny { grid-column: 1 / -1; border-top: 1px solid var(--border); paddi
   .facts div:first-child { border-left: 0; padding-left: 0; }
   .content { padding: 0 38px; }
   .about { gap: 38px; }
+  .chapter { gap: 30px; }
   .section { padding: 75px 0; }
   .roles { padding: 44px 30px; }
   .role-card { padding: 28px; }
@@ -262,6 +279,12 @@ footer > .tiny { grid-column: 1 / -1; border-top: 1px solid var(--border); paddi
   .card-head h3 { font-size: 28px; }
   .card-body p { font-size: 16px; }
   .principles { grid-template-columns: 1fr; gap: 22px; margin-top: 30px; }
+  .info-table { padding: 16px 18px; }
+  .info-table div { grid-template-columns: 96px 1fr; gap: 10px; }
+  .chapter { grid-template-columns: 1fr; gap: 14px; padding: 26px 0; }
+  .chapter-head h3 { font-size: 26px; }
+  .chapter-body p { font-size: 16px; }
+  .chapter-body blockquote { font-size: 19px; }
   .principles article { padding: 21px 0 0 45px; position: relative; }
   .principles .number { position: absolute; left: 0; top: 20px; }
   .principles h3 { margin: 0 0 12px; }

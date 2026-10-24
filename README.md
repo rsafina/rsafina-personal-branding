@@ -11,7 +11,7 @@ Double-click `index.html`. Use the **ID / EN** switch at the top right to change
 | File | What it is |
 | --- | --- |
 | `index.html` | Homepage: about, two roles, experience, principles, contact |
-| `prudential.html` | Insurance page |
+| `prudential.html` | Insurance page: introduction with info table, 5-chapter journey, contact |
 | `style.css` | Colors, layout, phone sizes |
 | `script.js` | Language switch, header, gentle fade-in, pausing the hero's moving light off screen |
 | `images/` | The three pictures the pages use |
@@ -32,6 +32,8 @@ English links look like `index.html?lang=en`.
 - Insurance: never promise acceptance, approval, guaranteed returns, or benefits beyond the policy. The process, FAQ and discussion questions stay out until Retno confirms her service scope.
 - Contact: WhatsApp 0878-3779-2220 (`wa.me/6287837792220`) and rsafinaeni@gmail.com, confirmed by Retno. Never add placeholder links.
 - Confirmed facts: based in Yogyakarta & Jakarta; 10 years of product & project experience; conversations in Bahasa Indonesia & English. No other numbers (no insurance years, clients or amounts) unless Retno confirms them.
+- Insurance affiliation confirmed by Retno: PT Prudential Life Assurance, Inspiring Agency, joined 2026. Calling name: Rere. Her leader is Vivi Agustina; they met at a work event (do not add how they are connected beyond that).
+- Journey facts confirmed by Retno: parents were day labourers (buruh harian lepas); often ill as a child; studied IT at school but could not continue because of cost; 10 years in product/project work. Keep the tone factual, not a sob story, and never use her illness for fear-based selling.
 - The portraits and chibi are AI-generated likenesses approved by Retno. Review the likeness before publishing.
 
 ## Motion (measured on the Athos reference, athos2.framer.website, then softened)
@@ -49,7 +51,7 @@ Our own additions: the hero's moving pastel light and waves (pause off screen), 
 ## Still needed before publishing
 
 - Confirm name spelling, role titles and both language versions of all copy.
-- Exact Prudential entity, credentials, verification links and logo permission.
+- AAJI licence number or other credentials, verification links, and logo permission.
 - Optional: LinkedIn link.
 - Optional: two or three personal details, authorized testimonials.
 - Golfer images (only ones Retno is allowed to use).
