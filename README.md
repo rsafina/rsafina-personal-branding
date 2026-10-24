@@ -14,8 +14,8 @@ Double-click `index.html`. Use the **ID / EN** switch at the top right to change
 | `prudential.html` | Insurance page: introduction with info table, 5-chapter journey, contact |
 | `style.css` | Colors, layout, phone sizes |
 | `script.js` | Language switch, header, gentle fade-in, pausing the hero's moving light off screen |
-| `images/` | The three pictures the pages use |
-| `images/originals/` | Approved full-size originals: `retno-introduction-v3.png`, `retno-insurance-v3.png`, `retno-chibi-wave.png` |
+| `images/` | The pictures the pages use (portraits, chibi, journey chibis) |
+| `images/originals/` | Approved full-size originals: portraits, waving chibi, and `journey-1` to `journey-5` |
 | `personal-website-guide.md` | The original brief |
 
 ## Editing text
@@ -26,7 +26,7 @@ English links look like `index.html?lang=en`.
 
 ## Journey chibis (insurance page)
 
-Each chapter of "Perjalanan saya" shows a half-body chibi once its file is in `images/`: `journey-1.png` (Dari nol), `journey-2.png` (Belajar IT), `journey-3.png` (Sepuluh tahun menjembatani), `journey-4.png` (Bertemu Prudential), `journey-5.png` (Hari ini). Until a file exists, that chapter simply shows no image. Use a transparent background, square (e.g. 1024×1024), same style as `images/originals/retno-chibi-wave.png`.
+Each chapter of "Perjalanan saya" shows a half-body chibi: `images/journey-1.webp` (Dari nol), `journey-2` (Belajar IT), `journey-3` (Sepuluh tahun menjembatani), `journey-4` (Bertemu Prudential), `journey-5` (Hari ini). These are 360px copies made from the full-size transparent PNGs in `images/originals/`. To replace one, put the new PNG in `images/originals/` and make a new 360px WebP with the same name (or ask Claude to). If a file is missing, that chapter simply shows no image.
 
 ## Content rules
 
