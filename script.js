@@ -132,32 +132,19 @@
     layout();
   });
 
-  // Story scroll: one pinned chibi changes to match the chapter in the middle of the screen.
-  document.querySelectorAll('.story-scroll').forEach(story => {
-    const figures = [...story.querySelectorAll('.story-figure img')];
-    const steps = [...story.querySelectorAll('.story-step')];
-    const marks = [...story.querySelectorAll('.story-progress li')];
-    const activate = index => {
-      figures.forEach((figure, i) => figure.classList.toggle('is-active', i === index));
-      marks.forEach((mark, i) => mark.classList.toggle('is-active', i === index));
-      steps.forEach((step, i) => step.classList.toggle('is-active', i === index));
-    };
-    activate(0);
-    if (!('IntersectionObserver' in window)) return;
-    const watcher = new IntersectionObserver(entries => entries.forEach(entry => {
-      if (entry.isIntersecting) activate(steps.indexOf(entry.target));
-    }), { rootMargin: '-45% 0px -45% 0px' });
-    steps.forEach(step => watcher.observe(step));
-  });
-
-  // Swipe cards: arrows and dots for a horizontal row that can also be swiped or scrolled.
+  // Swipe cards (journey on phones): arrows and dots for a row that can also be swiped.
+  // On larger screens the same list is a timeline and these controls are hidden.
   document.querySelectorAll('.swipe').forEach(swipe => {
     const track = swipe.querySelector('.swipe-track');
     const cards = [...track.children];
     const dots = [...swipe.querySelectorAll('.swipe-dots span')];
     const [previous, next] = swipe.querySelectorAll('.swipe-arrow');
-    const step = () => cards[1] ? cards[1].offsetLeft - cards[0].offsetLeft : track.clientWidth;
+    const step = () => cards[1].offsetLeft - cards[0].offsetLeft;
     const update = () => {
+      const sliding = track.scrollWidth > track.clientWidth + 4;
+      // Only a sliding row is a keyboard stop (arrow keys scroll it).
+      track.tabIndex = sliding ? 0 : -1;
+      if (!sliding || step() <= 0) return;
       const index = Math.round(track.scrollLeft / step());
       dots.forEach((dot, i) => dot.classList.toggle('is-active', i === index));
       previous.disabled = track.scrollLeft < 4;
@@ -167,6 +154,7 @@
     previous.addEventListener('click', () => go(-1));
     next.addEventListener('click', () => go(1));
     track.addEventListener('scroll', () => requestAnimationFrame(update), { passive: true });
+    addEventListener('resize', update);
     update();
   });
 
