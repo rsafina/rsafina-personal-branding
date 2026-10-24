@@ -56,7 +56,9 @@
     // The text fades out before it can reach the bottom strip, whatever the screen size.
     // The separate translate property leaves the entrance animation's transform untouched.
     const textBottom = [...heroMain.children].filter(child => child.getClientRects().length).pop().getBoundingClientRect().bottom - (parseFloat(heroMain.style.translate.split(' ')[1]) || 0);
-    const room = Math.max(40, heroStrip.getBoundingClientRect().top - textBottom);
+    // Whatever sits below the text (the profile card on smaller screens, or the strip).
+    const below = [hero.querySelector('.hero-aside'), heroStrip].filter(element => element && element.getBoundingClientRect().top >= textBottom - 1).map(element => element.getBoundingClientRect().top);
+    const room = Math.max(40, Math.min(...below, Infinity) - textBottom);
     const fadeEnd = Math.min(hero.offsetHeight * .5, room / .22 * .85);
     heroMain.style.translate = y ? `0 ${(y * .22).toFixed(1)}px` : '';
     // Keyboard focus inside the hero always sees it fully.
