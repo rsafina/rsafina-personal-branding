@@ -183,7 +183,8 @@ h1 em { font-style: italic; }
 .chapter-number { font: 23px Georgia, serif; color: var(--blue); }
 .chapter-head h3 { font: 30px/1.2 Georgia, serif; letter-spacing: -.03em; margin: 0; }
 .chapter-body p { font-size: 17px; margin: 0 0 18px; }
-.chapter-body blockquote { margin: 0; padding: 4px 0 4px 18px; border-left: 2px solid #f2c3d9; font: 21px/1.45 Georgia, serif; letter-spacing: -.01em; color: var(--ink); }
+.chapter-body blockquote, .pull-quote { margin: 0; padding: 4px 0 4px 18px; border-left: 2px solid #f2c3d9; font: 21px/1.45 Georgia, serif; letter-spacing: -.01em; color: var(--ink); }
+.prose .pull-quote { margin-bottom: 24px; }
 .habits { padding: 74px 0 90px; }
 .principles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 40px; }
 .principles article { border-top: 1px solid #c7d1df; padding-top: 22px; }
@@ -299,7 +300,7 @@ footer > .tiny { grid-column: 1 / -1; border-top: 1px solid var(--border); paddi
   .chapter-head h3 { font-size: 26px; }
   .chapter-chibi { height: 120px; margin-top: 10px; }
   .chapter-body p { font-size: 16px; }
-  .chapter-body blockquote { font-size: 19px; }
+  .chapter-body blockquote, .pull-quote { font-size: 19px; }
   .principles article { padding: 21px 0 0 45px; position: relative; }
   .principles .number { position: absolute; left: 0; top: 20px; }
   .principles h3 { margin: 0 0 12px; }
