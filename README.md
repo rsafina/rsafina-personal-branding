@@ -24,6 +24,10 @@ Every sentence appears twice, next to each other: `lang="id"` for Indonesian and
 
 English links look like `index.html?lang=en`.
 
+## Journey chibis (insurance page)
+
+Each chapter of "Perjalanan saya" shows a half-body chibi once its file is in `images/`: `journey-1.png` (Dari nol), `journey-2.png` (Belajar IT), `journey-3.png` (Sepuluh tahun menjembatani), `journey-4.png` (Bertemu Prudential), `journey-5.png` (Hari ini). Until a file exists, that chapter simply shows no image. Use a transparent background, square (e.g. 1024×1024), same style as `images/originals/retno-chibi-wave.png`.
+
 ## Content rules
 
 - Do not name the current employer or mention Intoch.
