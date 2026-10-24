@@ -230,11 +230,8 @@ h1 em { font-style: italic; }
 .greeting p { text-align: left; font: 24px Georgia, serif; color: var(--ink); margin: 0; }
 .greeting small { display: block; font: 12px/1.7 'Segoe UI', Arial, sans-serif; color: var(--muted); margin-top: 10px; }
 
-footer { max-width: 1200px; margin: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 28px; padding: 54px 40px 30px; }
-.footer-name { font: 27px Georgia, serif; display: flex; justify-content: space-between; align-items: start; padding-right: 70px; }
-.footer-name span { color: var(--blue); }
-footer p { font-size: 12px; margin-bottom: 8px; }
-footer > .tiny { grid-column: 1 / -1; border-top: 1px solid var(--border); padding-top: 22px; }
+footer { max-width: 1200px; margin: auto; padding: 40px 40px 30px; }
+footer > .tiny { display: block; border-top: 1px solid var(--border); padding-top: 22px; }
 
 /* Motion, based on Athos and softened. Hero entrance: plays once on load, blocks rise 20px
    over 0.9s, 100ms apart. Section reveals: sections below the screen wait, then rise 18px
@@ -341,9 +338,7 @@ footer > .tiny { grid-column: 1 / -1; border-top: 1px solid var(--border); paddi
   .chibi { height: 96px; }
   .greeting p { font-size: 20px; }
   .greeting small { font-size: 11px; margin-top: 7px; }
-  footer { padding: 38px 24px 24px; grid-template-columns: 1fr; gap: 23px; }
-  .footer-name { padding-right: 0; }
-  footer > .tiny { grid-column: auto; }
+  footer { padding: 32px 24px 24px; }
 }
 
 /* Reduced motion: everything visible, nothing moves. */
