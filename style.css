@@ -176,14 +176,12 @@ h1 em { font-style: italic; }
 .journey-introduction { max-width: 640px; margin-bottom: 44px; }
 .chapters { list-style: none; margin: 0; padding: 0; }
 .chapter { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 48px; padding: 34px 0; border-top: 1px solid #c7d1df; }
-/* Number and title on the left; the chibi sits in the middle space, centred in the chapter. */
-.chapter-head { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; grid-template-rows: 1fr; column-gap: 18px; }
-.chapter-number { align-self: start; padding-top: 4px; }
-.chapter-head h3 { align-self: start; }
+/* Title on the left and the chibi in the middle space, both centred vertically in the chapter. */
+.chapter-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: 1fr; column-gap: 18px; }
+.chapter-head h3 { align-self: center; }
 /* Half-body chibi per chapter, shown only once its image file exists (see prudential.html). */
 .chapter-chibi { display: none; align-self: center; justify-self: center; width: auto; height: 170px; margin: 0 4px 0 12px; object-fit: contain; }
 .chapter-chibi.is-loaded { display: block; }
-.chapter-number { font: 23px Georgia, serif; color: var(--blue); }
 .chapter-head h3 { font: 30px/1.2 Georgia, serif; letter-spacing: -.03em; margin: 0; }
 .chapter-body p { font-size: 17px; margin: 0 0 18px; }
 .chapter-body blockquote, .pull-quote { margin: 0; padding: 4px 0 4px 18px; border-left: 2px solid #f2c3d9; font: 21px/1.45 Georgia, serif; letter-spacing: -.01em; color: var(--ink); }
@@ -311,6 +309,7 @@ footer > .tiny { grid-column: 1 / -1; border-top: 1px solid var(--border); paddi
   .chapter-head h3 { font-size: 26px; }
   /* Phone: a small chibi in the bottom-right corner of the quote, about 15% of its width. */
   .chapter { position: relative; }
+  .chapter-head h3 { align-self: start; }
   .chapter-chibi { position: absolute; right: 0; bottom: 26px; width: 15%; height: auto; margin: 0; }
   .chapter-body blockquote { min-height: 64px; padding-right: 19%; }
   .chapter-body p { font-size: 16px; }
