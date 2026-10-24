@@ -110,13 +110,13 @@
         <p lang="en">Not a perfect story, but the one that shaped how I work today.</p>
       </div>
       <!-- Large screens: story scroll, a pinned chibi that changes with the chapter in the middle of the
-           screen. Phones and small tablets: one full-width card per chapter, swiped sideways (see script.js). -->
-      <div class="journey-story swipe">
+           screen. Phones and small tablets: chapter cards that stack while scrolling (see script.js). -->
+      <div class="journey-story">
         <div class="story-figure" aria-hidden="true">
           <div class="figure-stage"><img src="images/journey-1.webp" width="360" height="360" alt=""><img src="images/journey-2.webp" width="360" height="360" alt=""><img src="images/journey-3.webp" width="360" height="360" alt=""><img src="images/journey-4.webp" width="360" height="360" alt=""><img src="images/journey-5.webp" width="360" height="360" alt=""></div>
           <ol class="story-progress"><li></li><li></li><li></li><li></li><li></li></ol>
         </div>
-        <ol class="story-steps swipe-track" aria-label="Perjalanan saya / My journey">
+        <ol class="story-steps" data-card-stack data-stack-max="900" aria-label="Perjalanan saya / My journey">
           <li class="story-step">
             <div class="step-marker" aria-hidden="true"><img src="images/journey-1.webp" width="360" height="360" alt=""></div>
             <div class="step-content">
@@ -168,11 +168,6 @@
             </div>
           </li>
         </ol>
-        <div class="swipe-controls">
-          <button class="swipe-arrow" type="button" aria-label="Sebelumnya / Previous">←</button>
-          <div class="swipe-dots" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
-          <button class="swipe-arrow" type="button" aria-label="Berikutnya / Next">→</button>
-        </div>
       </div>
     </section>
 

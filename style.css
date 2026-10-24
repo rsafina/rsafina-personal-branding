@@ -156,11 +156,12 @@ h1 em { font-style: italic; }
 .card-body p:last-child { margin-bottom: 0; }
 /* Stacked mode (added by script.js only when every card fits the screen): each card pins
    15px lower than the one before, and covered cards shrink slightly as you scroll. */
-.experience-cards.is-stacked .experience-card { position: sticky; top: calc(var(--pin, 100px) + var(--k) * 15px); will-change: transform; }
-.experience-card:nth-child(1) { --k: 0; }
-.experience-card:nth-child(2) { --k: 1; }
-.experience-card:nth-child(3) { --k: 2; }
-.experience-card:nth-child(4) { --k: 3; }
+.is-stacked > * { position: sticky; top: calc(var(--pin, 100px) + var(--k) * 15px); will-change: transform; }
+.is-stacked > :nth-child(1) { --k: 0; }
+.is-stacked > :nth-child(2) { --k: 1; }
+.is-stacked > :nth-child(3) { --k: 2; }
+.is-stacked > :nth-child(4) { --k: 3; }
+.is-stacked > :nth-child(5) { --k: 4; }
 .experience-label { display: block; width: fit-content; margin-top: 14px; padding: 3px 12px; border-radius: 20px; background: #ffffffb3; color: var(--blue); font-size: 12px; }
 .experience-connection { padding-left: 15px; border-left: 2px solid #ffffff; }
 .experience-source { margin-top: auto; padding-top: 24px; font-size: 13px; color: var(--blue); }
@@ -173,7 +174,7 @@ h1 em { font-style: italic; }
 .info-table a { color: var(--blue); text-decoration: underline; text-decoration-color: #9fb4c8; text-underline-offset: 3px; }
 
 /* Journey. Large screens: story scroll, one pinned chibi that changes with the chapter in the middle
-   of the screen. Phones and small tablets: one full-width pastel card per chapter, swiped sideways. */
+   of the screen. Phones and small tablets: chapter cards that stack while scrolling. */
 .journey-introduction { max-width: 640px; margin-bottom: 44px; }
 .journey-story { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 64px; align-items: start; }
 .story-figure { position: sticky; top: 130px; height: min(520px, calc(100vh - 200px)); display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 28px; background: linear-gradient(150deg, #fdf0f6, #f3f0fb 55%, #e8f4fd); box-shadow: 0 10px 40px -16px #2532442e; }
@@ -190,34 +191,27 @@ h1 em { font-style: italic; }
 .step-content h3 { font: 34px/1.2 Georgia, serif; letter-spacing: -.03em; margin: 0 0 16px; }
 .step-content p { font-size: 17px; line-height: 1.8; margin: 0 0 18px; }
 .pull-quote { margin: 0; padding: 4px 0 4px 18px; border-left: 2px solid #f2c3d9; font: 21px/1.45 Georgia, serif; letter-spacing: -.01em; color: var(--ink); }
-.swipe-controls { display: none; }
 
-/* Phones and small tablets: the journey becomes swipe cards. */
+/* Phones and small tablets: the journey chapters become pastel cards that stack while scrolling
+   (script.js pins them only when a whole card fits on the screen; otherwise they stay a list). */
 @media (max-width: 900px) {
   .journey-story { display: block; }
   .story-figure { display: none; }
-  .story-step { min-height: 0; opacity: 1; }
-  .journey-story .story-steps { display: flex; align-items: stretch; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; margin: 0 -38px; padding: 4px 38px 18px; scroll-padding: 0 38px; scrollbar-width: none; }
-  .journey-story .story-steps::-webkit-scrollbar { display: none; }
-  .journey-story .story-steps:focus-visible { outline: 3px solid var(--blue); outline-offset: -3px; border-radius: 24px; }
-  .journey-story .story-step { flex: 0 0 100%; justify-content: flex-start; padding: 26px 22px; scroll-snap-align: start; scroll-snap-stop: always; border: 1px solid #ffffffb3; border-radius: 24px; background: #fbedf3; box-shadow: 0 10px 30px -18px #2532443d; }
+  .journey-story .story-steps { display: flex; flex-direction: column; gap: 18px; }
+  .journey-story .story-step { display: grid; grid-template-columns: minmax(0, 1fr) 84px; column-gap: 14px; align-items: center; align-content: start; min-height: var(--card-h, 0); padding: 24px 22px; opacity: 1; border: 1px solid #ffffffb3; border-radius: 24px; background: #fbedf3; box-shadow: 0 10px 30px -18px #2532443d; transform-origin: 50% 0; }
   .journey-story .story-step:nth-child(2) { background: #e8f3fc; }
   .journey-story .story-step:nth-child(3) { background: #efebfa; }
   .journey-story .story-step:nth-child(4) { background: #f6f4f0; }
   .journey-story .story-step:nth-child(5) { background: #fdf0e9; }
-  .step-marker { display: grid; place-items: end center; width: 104px; height: 104px; margin-bottom: 18px; overflow: hidden; border: 2px solid #f2c3d9; border-radius: 50%; background: #ffffffb3; box-shadow: 0 8px 26px -12px #2532443d; }
+  .step-content { display: contents; }
+  .step-content h3 { grid-column: 1; grid-row: 1; margin: 0; font-size: 27px; }
+  .step-content p, .step-content blockquote { grid-column: 1 / -1; }
+  .step-content h3 + p, .step-content h3 + p + p { margin-top: 16px; }
+  .step-marker { grid-column: 2; grid-row: 1; display: grid; place-items: end center; width: 84px; height: 84px; overflow: hidden; border: 2px solid #f2c3d9; border-radius: 50%; background: #ffffffb3; box-shadow: 0 8px 26px -12px #2532443d; }
   .story-step:nth-child(even) .step-marker { border-color: #b9dcf6; }
   .step-marker img { width: 92%; height: auto; transform-origin: 50% 90%; }
-  .step-content h3 { font-size: 27px; }
   .step-content p { font-size: 16px; }
   .pull-quote { font-size: 19px; }
-  .swipe-controls { display: flex; justify-content: center; align-items: center; gap: 18px; margin-top: 6px; }
-  .swipe-arrow { width: 46px; height: 46px; border: 1px solid #cfd8e3; border-radius: 50%; background: #fff; color: var(--ink); font-size: 18px; cursor: pointer; transition: background-color .2s, opacity .2s; }
-  .swipe-arrow:disabled { opacity: .35; cursor: default; }
-  .swipe-arrow:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
-  .swipe-dots { display: flex; gap: 6px; }
-  .swipe-dots span { width: 8px; height: 8px; border-radius: 6px; background: #cbd5e2; transition: width .3s var(--calm), background-color .3s; }
-  .swipe-dots span.is-active { width: 22px; background: var(--blue); }
 }
 .prose .pull-quote { margin-bottom: 24px; }
 .habits { padding: 74px 0 90px; }
@@ -335,7 +329,6 @@ footer > .tiny { grid-column: 1 / -1; border-top: 1px solid var(--border); paddi
   .card-head h3 { font-size: 28px; }
   .card-body p { font-size: 16px; }
   .principles { grid-template-columns: 1fr; gap: 22px; margin-top: 30px; }
-  .journey-story .story-steps { margin: 0 -24px; padding: 4px 24px 18px; scroll-padding: 0 24px; }
   .info-table { padding: 16px 18px; }
   .info-table div { grid-template-columns: 96px 1fr; gap: 10px; }
   .principles article { padding: 21px 0 0 45px; position: relative; }
@@ -358,7 +351,7 @@ footer > .tiny { grid-column: 1 / -1; border-top: 1px solid var(--border); paddi
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .waiting { opacity: 1; transform: none; }
-  .experience-card { transform: none !important; }
+  .experience-card, .is-stacked > * { transform: none !important; }
   .button:hover, .button:active, .role-card:hover, .arrow { transform: none !important; }
 }
 

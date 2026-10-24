@@ -77,7 +77,8 @@
   // next card slides over it. A covered card shrinks 5% per card that has arrived on top,
   // following the scroll position (so it reverses when scrolling up), lightly smoothed.
   // Only used when every card fits on screen; otherwise the cards stay a normal list.
-  document.querySelectorAll('.experience-cards').forEach(stack => {
+  // data-stack-max limits stacking to smaller screens (the insurance journey on phones).
+  document.querySelectorAll('.experience-cards, [data-card-stack]').forEach(stack => {
     const cards = [...stack.children];
     const SHRINK = .04, APPROACH = 480, STEP = 15;
     let naturalTops = [], pin = 0, current = cards.map(() => 1), frame = 0, stacked = false;
@@ -91,7 +92,8 @@
       pin = header.offsetHeight + 16;
       const tallest = Math.max(...cards.map(card => card.offsetHeight));
       const fits = tallest + pin + STEP * (cards.length - 1) + 24 <= innerHeight;
-      stacked = fits && innerWidth >= 900 && !reduceMotion.matches;
+      const widthOk = stack.dataset.stackMax ? innerWidth <= +stack.dataset.stackMax : innerWidth >= 900;
+      stacked = fits && widthOk && !reduceMotion.matches;
       if (!stacked) return;
       // Equal heights let all cards release together at the end of the section.
       stack.style.setProperty('--card-h', `${tallest}px`);
@@ -149,32 +151,6 @@
       if (entry.isIntersecting) activate(steps.indexOf(entry.target));
     }), { rootMargin: '-45% 0px -45% 0px' });
     steps.forEach(step => watcher.observe(step));
-  });
-
-  // Swipe cards (journey on phones): arrows and dots for a row that can also be swiped.
-  // On larger screens the same list is a timeline and these controls are hidden.
-  document.querySelectorAll('.swipe').forEach(swipe => {
-    const track = swipe.querySelector('.swipe-track');
-    const cards = [...track.children];
-    const dots = [...swipe.querySelectorAll('.swipe-dots span')];
-    const [previous, next] = swipe.querySelectorAll('.swipe-arrow');
-    const step = () => cards[1].offsetLeft - cards[0].offsetLeft;
-    const update = () => {
-      const sliding = track.scrollWidth > track.clientWidth + 4;
-      // Only a sliding row is a keyboard stop (arrow keys scroll it).
-      track.tabIndex = sliding ? 0 : -1;
-      if (!sliding || step() <= 0) return;
-      const index = Math.round(track.scrollLeft / step());
-      dots.forEach((dot, i) => dot.classList.toggle('is-active', i === index));
-      previous.disabled = track.scrollLeft < 4;
-      next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
-    };
-    const go = direction => track.scrollBy({ left: direction * step(), behavior: reduceMotion.matches ? 'auto' : 'smooth' });
-    previous.addEventListener('click', () => go(-1));
-    next.addEventListener('click', () => go(1));
-    track.addEventListener('scroll', () => requestAnimationFrame(update), { passive: true });
-    addEventListener('resize', update);
-    update();
   });
 
   // Section reveals, after Athos: play once per section. Only sections still below the screen
