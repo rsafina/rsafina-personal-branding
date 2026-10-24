@@ -337,3 +337,72 @@ footer > .tiny { grid-column: 1 / -1; border-top: 1px solid var(--border); paddi
   .experience-card { transform: none !important; }
   .button:hover, .button:active, .role-card:hover, .arrow { transform: none !important; }
 }
+
+/* ---------- Draft: journey layout options (journey-options.html only) ---------- */
+.options-intro { padding: 48px 0 8px; }
+.options-intro nav { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.options-intro nav a { padding: 8px 14px; border: 1px solid #cfd8e3; border-radius: 30px; background: #fff; font-size: 14px; }
+.option-banner { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: baseline; margin: 0 0 40px; padding: 14px 18px; border: 1px dashed #a8b4c4; border-radius: 14px; background: #fff; }
+.option-banner strong { font: 22px Georgia, serif; letter-spacing: -.02em; }
+.option-banner > span { font-size: 14px; color: var(--muted); }
+
+/* A. Story scroll: a pinned chibi that changes with the chapter in the middle of the screen. */
+.story-scroll { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 64px; align-items: start; }
+.story-figure { position: sticky; top: 130px; height: min(520px, calc(100vh - 200px)); display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 28px; background: linear-gradient(150deg, #fdf0f6, #f3f0fb 55%, #e8f4fd); box-shadow: 0 10px 40px -16px #2532442e; }
+.figure-stage { position: relative; width: min(300px, 80%); aspect-ratio: 1; }
+.story-figure img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; opacity: 0; transform: translateY(12px) scale(.96); transition: opacity .5s var(--calm), transform .7s var(--calm); }
+.story-figure img.is-active { opacity: 1; transform: none; }
+.story-progress { display: flex; gap: 8px; list-style: none; margin: 26px 0 0; padding: 0; }
+.story-progress li { width: 8px; height: 8px; border-radius: 6px; background: #cbd5e2; transition: width .4s var(--calm), background-color .4s; }
+.story-progress li.is-active { width: 26px; background: var(--blue); }
+.story-step { position: relative; min-height: 62vh; display: flex; flex-direction: column; justify-content: center; padding: 40px 0; opacity: .5; transition: opacity .5s var(--calm); }
+.story-step.is-active { opacity: 1; }
+.story-step h3 { font: 34px/1.2 Georgia, serif; letter-spacing: -.03em; margin: 0 0 16px; }
+.story-step p, .timeline-content p, .swipe-card p, .journey-card .card-body p { font-size: 17px; line-height: 1.8; margin: 0 0 18px; }
+.step-chibi { display: none; }
+
+/* B. Timeline: a soft line down the section with each chibi as a stop on it. */
+.timeline { position: relative; list-style: none; margin: 0; padding: 0; }
+.timeline::before { content: ''; position: absolute; left: 69px; top: 30px; bottom: 30px; width: 2px; background: linear-gradient(#f2c3d9, #ddd2f7, #b9dcf6); }
+.timeline-item { display: grid; grid-template-columns: 140px minmax(0, 1fr); gap: 40px; align-items: center; padding: 22px 0; }
+.timeline-marker { position: relative; width: 140px; height: 140px; display: grid; place-items: end center; overflow: hidden; border: 2px solid #f2c3d9; border-radius: 50%; background: #fdf3f8; box-shadow: 0 8px 26px -12px #2532443d; }
+.timeline-item:nth-child(even) .timeline-marker { border-color: #b9dcf6; background: #f1f8fe; }
+.timeline-marker img { width: 92%; height: auto; }
+.timeline-content h3 { font: 30px/1.2 Georgia, serif; letter-spacing: -.03em; margin: 0 0 12px; }
+
+/* C. Stacked cards: uses the homepage card stack. */
+.journey-card .card-head h3 { margin-top: 0; }
+.journey-card .card-chibi { width: auto; height: 150px; margin-top: auto; padding-top: 18px; }
+
+/* D. Swipe cards: a horizontal row with arrows and dots. */
+.swipe-track { display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 6px 4px 24px; scrollbar-width: none; }
+.swipe-track::-webkit-scrollbar { display: none; }
+.swipe-track:focus-visible { outline: 3px solid var(--blue); outline-offset: 4px; border-radius: 12px; }
+.swipe-card { flex: 0 0 min(380px, 84%); display: flex; flex-direction: column; scroll-snap-align: start; padding: 28px; border: 1px solid #ffffffb3; border-radius: 24px; box-shadow: 0 10px 30px -16px #2532442e; }
+.swipe-card img { align-self: center; width: auto; height: 150px; margin-bottom: 14px; }
+.swipe-card h3 { font: 28px/1.2 Georgia, serif; letter-spacing: -.03em; margin: 0 0 12px; }
+.swipe-controls { display: flex; justify-content: center; align-items: center; gap: 18px; margin-top: 8px; }
+.swipe-arrow { width: 46px; height: 46px; border: 1px solid #cfd8e3; border-radius: 50%; background: #fff; color: var(--ink); font-size: 18px; cursor: pointer; transition: background-color .2s, opacity .2s; }
+.swipe-arrow:disabled { opacity: .35; cursor: default; }
+.swipe-arrow:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+.swipe-dots { display: flex; gap: 6px; }
+.swipe-dots span { width: 8px; height: 8px; border-radius: 6px; background: #cbd5e2; transition: width .3s var(--calm), background-color .3s; }
+.swipe-dots span.is-active { width: 22px; background: var(--blue); }
+@media (hover: hover) and (pointer: fine) { .swipe-arrow:not(:disabled):hover { background: var(--sky); } }
+
+@media (max-width: 900px) {
+  .story-scroll { grid-template-columns: 1fr; gap: 0; }
+  .story-figure { display: none; }
+  .story-step { min-height: auto; opacity: 1; padding: 26px 0; border-top: 1px solid #c7d1df; }
+  .story-step h3 { font-size: 28px; }
+  .step-chibi { display: block; position: absolute; right: 0; bottom: 26px; width: 15%; height: auto; }
+  .story-step .pull-quote { min-height: 64px; padding-right: 19%; }
+}
+@media (max-width: 700px) {
+  .timeline::before { left: 37px; }
+  .timeline-item { grid-template-columns: 76px minmax(0, 1fr); gap: 18px; align-items: start; }
+  .timeline-marker { width: 76px; height: 76px; }
+  .timeline-content h3 { font-size: 25px; }
+  .journey-card .card-chibi { height: 100px; }
+  .story-step p, .timeline-content p, .swipe-card p, .journey-card .card-body p { font-size: 16px; }
+}

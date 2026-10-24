@@ -77,8 +77,7 @@
   // next card slides over it. A covered card shrinks 5% per card that has arrived on top,
   // following the scroll position (so it reverses when scrolling up), lightly smoothed.
   // Only used when every card fits on screen; otherwise the cards stay a normal list.
-  const stack = document.querySelector('.experience-cards');
-  if (stack) {
+  document.querySelectorAll('.experience-cards').forEach(stack => {
     const cards = [...stack.children];
     const SHRINK = .04, APPROACH = 480, STEP = 15;
     let naturalTops = [], pin = 0, current = cards.map(() => 1), frame = 0, stacked = false;
@@ -131,7 +130,45 @@
       if (i >= 0 && Math.abs(scrollY - top) > 4) scrollTo({ top, behavior: 'instant' });
     });
     layout();
-  }
+  });
+
+  // Story scroll: one pinned chibi changes to match the chapter in the middle of the screen.
+  document.querySelectorAll('.story-scroll').forEach(story => {
+    const figures = [...story.querySelectorAll('.story-figure img')];
+    const steps = [...story.querySelectorAll('.story-step')];
+    const marks = [...story.querySelectorAll('.story-progress li')];
+    const activate = index => {
+      figures.forEach((figure, i) => figure.classList.toggle('is-active', i === index));
+      marks.forEach((mark, i) => mark.classList.toggle('is-active', i === index));
+      steps.forEach((step, i) => step.classList.toggle('is-active', i === index));
+    };
+    activate(0);
+    if (!('IntersectionObserver' in window)) return;
+    const watcher = new IntersectionObserver(entries => entries.forEach(entry => {
+      if (entry.isIntersecting) activate(steps.indexOf(entry.target));
+    }), { rootMargin: '-45% 0px -45% 0px' });
+    steps.forEach(step => watcher.observe(step));
+  });
+
+  // Swipe cards: arrows and dots for a horizontal row that can also be swiped or scrolled.
+  document.querySelectorAll('.swipe').forEach(swipe => {
+    const track = swipe.querySelector('.swipe-track');
+    const cards = [...track.children];
+    const dots = [...swipe.querySelectorAll('.swipe-dots span')];
+    const [previous, next] = swipe.querySelectorAll('.swipe-arrow');
+    const step = () => cards[1] ? cards[1].offsetLeft - cards[0].offsetLeft : track.clientWidth;
+    const update = () => {
+      const index = Math.round(track.scrollLeft / step());
+      dots.forEach((dot, i) => dot.classList.toggle('is-active', i === index));
+      previous.disabled = track.scrollLeft < 4;
+      next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+    };
+    const go = direction => track.scrollBy({ left: direction * step(), behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+    previous.addEventListener('click', () => go(-1));
+    next.addEventListener('click', () => go(1));
+    track.addEventListener('scroll', () => requestAnimationFrame(update), { passive: true });
+    update();
+  });
 
   // Section reveals, after Athos: play once per section. Only sections still below the screen
   // are hidden first, so something you can already see never disappears and fades back.
