@@ -14,7 +14,7 @@ Double-click `index.html`. Use the **ID / EN** switch at the top right to change
 | `prudential.html` | Insurance page: hero with profile card, introduction, 5-chapter journey (story scroll on large screens, stacking cards on phones), contact |
 | `style.css` | Colors, layout, phone sizes |
 | `script.js` | Language switch, header, gentle fade-in, pausing the hero's moving light off screen |
-| `images/` | The pictures the pages use (portraits, chibi, journey chibis) |
+| `images/` | Small local backup copies of the pictures (used only if Cloudinary cannot load) |
 | `personal-website-guide.md` | The original brief |
 
 ## Editing text
@@ -28,6 +28,10 @@ English links look like `index.html?lang=en`.
 Each chapter of "Perjalanan saya" has a half-body chibi: `images/journey-1.webp` (Dari nol), `journey-2` (Belajar IT), `journey-3` (Sepuluh tahun menjembatani), `journey-4` (Bertemu Prudential), `journey-5` (Hari ini). These are small 360px copies. The full-size originals are no longer stored in this repo (they made the download about 12 MB); they are kept outside it and remain in Git history. To replace a chibi, send the new PNG and ask Claude to make the 360px WebP.
 
 Layout: on large screens (above 900px) a pastel panel on the left pins one chibi that changes to match the chapter in the middle of the screen, with progress dots; the current chapter is highlighted. On phones and small tablets each chapter is a pastel card that stacks over the previous one while scrolling (same effect as the homepage experience cards); on very small screens, or with reduced motion, they stay a normal list. The chibis wave every few seconds (still with reduced motion).
+
+## Images (Cloudinary)
+
+The pages load their pictures from Cloudinary (cloud `qtflin43`, folder `rsafina-website`), which serves each visitor the right size and format. Full-size originals live there: `journey-1` to `journey-5`, `retno-introduction-v3`, `retno-insurance-v3`, `retno-chibi-wave`. Each `<img>` also has `data-fallback="images/…webp"`; if Cloudinary cannot load an image, script.js switches to that local copy. To change a picture, upload the new original to the same Cloudinary name (or ask Claude), and replace the local WebP backup. The unsigned upload preset `resafina` should stay switched off when not uploading.
 
 ## Content rules
 

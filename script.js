@@ -2,6 +2,13 @@
 (() => {
   const english = document.documentElement.lang === 'en';
 
+  // Images come from Cloudinary; if one cannot load, use the small local copy instead.
+  document.querySelectorAll('img[data-fallback]').forEach(image => {
+    const useLocal = () => { image.src = image.dataset.fallback; image.removeAttribute('data-fallback'); };
+    if (image.complete && !image.naturalWidth) useLocal();
+    else image.addEventListener('error', useLocal, { once: true });
+  });
+
   // Language: mark the active ID / EN link, translate image descriptions,
   // and keep English when moving between the two pages.
   document.querySelectorAll('[data-lang-link]').forEach(link => {
