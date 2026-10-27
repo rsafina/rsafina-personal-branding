@@ -15,7 +15,6 @@ Double-click `index.html`. Use the **ID / EN** switch at the top right to change
 | `style.css` | Colors, layout, phone sizes |
 | `script.js` | Language switch, header, gentle fade-in, pausing the hero's moving light off screen |
 | `images/` | The pictures the pages use (portraits, chibi, journey chibis) |
-| `images/originals/` | Approved full-size originals: portraits, waving chibi, and `journey-1` to `journey-5` |
 | `personal-website-guide.md` | The original brief |
 
 ## Editing text
@@ -26,7 +25,7 @@ English links look like `index.html?lang=en`.
 
 ## Journey chibis (insurance page)
 
-Each chapter of "Perjalanan saya" has a half-body chibi: `images/journey-1.webp` (Dari nol), `journey-2` (Belajar IT), `journey-3` (Sepuluh tahun menjembatani), `journey-4` (Bertemu Prudential), `journey-5` (Hari ini). These are 360px copies made from the full-size transparent PNGs in `images/originals/`. To replace one, put the new PNG in `images/originals/` and make a new 360px WebP with the same name (or ask Claude to).
+Each chapter of "Perjalanan saya" has a half-body chibi: `images/journey-1.webp` (Dari nol), `journey-2` (Belajar IT), `journey-3` (Sepuluh tahun menjembatani), `journey-4` (Bertemu Prudential), `journey-5` (Hari ini). These are small 360px copies. The full-size originals are no longer stored in this repo (they made the download about 12 MB); they are kept outside it and remain in Git history. To replace a chibi, send the new PNG and ask Claude to make the 360px WebP.
 
 Layout: on large screens (above 900px) a pastel panel on the left pins one chibi that changes to match the chapter in the middle of the screen, with progress dots; the current chapter is highlighted. On phones and small tablets each chapter is a pastel card that stacks over the previous one while scrolling (same effect as the homepage experience cards); on very small screens, or with reduced motion, they stay a normal list. The chibis wave every few seconds (still with reduced motion).
 
